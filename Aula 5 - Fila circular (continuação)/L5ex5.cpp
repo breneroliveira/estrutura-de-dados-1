@@ -15,7 +15,8 @@ int main() {
     Pilha p1;
     Fila fPrimo, fPar, fImpar;
 
-    int tam, numero, resultado = 0;
+    int numero, tam, resultado = 0;
+    float divisor = 2;
     string empresaAviao;
 
     int menu;
@@ -93,7 +94,9 @@ int main() {
                     if(desempilhar(&p1, &numero)) {
                         cout << "Número removido." << endl << endl;
 
-                        for (int i = 2; i <= numero / 2; i++) {
+                        resultado = 0;
+
+                        for (int i = 2; i <= numero / divisor; i++) {
                             if (numero % i == 0) {
                                 resultado++;
                                 break;
@@ -102,10 +105,10 @@ int main() {
 
                         if (resultado == 0)
                             enfileiraF(&fPrimo, numero);
-                        /*else if(numero % 2 == 0)
+                        else if(numero % 2 == 0)
                             enfileiraF(&fPar, numero);
                         else if(numero % 2 != 0)
-                            enfileiraF(&fImpar, numero);*/
+                            enfileiraF(&fImpar, numero);
                     } else
                         cout << "Fila vazia." << endl << endl;
                 }

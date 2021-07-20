@@ -9,7 +9,7 @@ struct Pilha {
     int tam;
     int *dados;
 
-    Pilha(){
+    Pilha() {
         tam = 0;
         base = -1;
         topo = -1;
