@@ -51,6 +51,10 @@ int main() {
 
                 cout << "\nPilha criada." << endl << endl;
 
+                inicializaF(&fPrimo, tam);
+                inicializaF(&fPar, tam);
+                inicializaF(&fImpar, tam);
+
                 controle = true;
 
                 break;
@@ -86,8 +90,6 @@ int main() {
 
                     cout << "Escolha a opção 1 antes de continuar." << endl << endl;
                 } else {
-                    
-
                     if(desempilhar(&p1, &numero)) {
                         cout << "Número removido." << endl << endl;
 
@@ -100,18 +102,12 @@ int main() {
 
                         if (resultado == 0)
                             enfileiraF(&fPrimo, numero);
-                        else if(numero % 2 == 0)
+                        /*else if(numero % 2 == 0)
                             enfileiraF(&fPar, numero);
                         else if(numero % 2 != 0)
-                            enfileiraF(&fImpar, numero);
+                            enfileiraF(&fImpar, numero);*/
                     } else
                         cout << "Fila vazia." << endl << endl;
-
-
-                    /*if(desempilhar(&p1, &numero))
-                        cout << "Número removido." << endl << endl;
-                    else
-                        cout << "Fila vazia." << endl << endl;*/
                 }
                 break;
 
