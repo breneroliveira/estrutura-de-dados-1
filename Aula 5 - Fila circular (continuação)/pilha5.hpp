@@ -71,10 +71,9 @@ bool desempilhar(Pilha *p, int *valor){
 void mostrar(Pilha *p)
 {
 
-    if (p->dados == NULL) /// retorna se a pilha n�o foi inicializada
+    if (p->dados == NULL) /// retorna se a pilha não foi inicializada
         return;
 
-    cout << "PILHA :" << endl;
     cout << "TAM: " << p->tam << endl;
     cout << "TOPO: " << p->topo << endl << endl;
     if(!vazia(p))

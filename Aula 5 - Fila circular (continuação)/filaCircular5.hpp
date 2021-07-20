@@ -115,7 +115,7 @@ bool espiarF(Fila *f, int *valor) /// Peek
 
 void mostraF(Fila *f)
 {
-    cout << "Fila{TAM = " << f->tam << ", TOTAL = " <<  f->total << "} -> ";
+    cout << "Fila {TAM = " << f->tam << ", TOTAL = " <<  f->total << "} -> ";
 
     if (!f->dados)  /// Retorna se a fila não foi inicializada
         return;
@@ -137,7 +137,7 @@ void mostraF(Fila *f)
         }
         cout << "]\n\n";
     } else
-        cout << "Fila vazia!\n\n";
+        cout << "Fila vazia.\n\n";
 }
 
 void mostraVetorDadosF(Fila *f)

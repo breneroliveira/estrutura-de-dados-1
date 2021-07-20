@@ -15,9 +15,7 @@ int main() {
     Pilha p1;
     Fila fPrimo, fPar, fImpar;
 
-    int numero, tam, resultado = 0;
-    float divisor = 2;
-    string empresaAviao;
+    int numero, tam, divisores = 0;
 
     int menu;
     bool controle = false;
@@ -94,18 +92,21 @@ int main() {
                     if(desempilhar(&p1, &numero)) {
                         cout << "Número removido." << endl << endl;
 
-                        resultado = 0;
+                        divisores = 0;
 
-                        for (int i = 2; i <= numero / divisor; i++) {
+                        for (int i = 1; i <= numero; i++) {
                             if (numero % i == 0) {
-                                resultado++;
-                                break;
+                                divisores++;
                             }
                         }
 
-                        if (resultado == 0)
+                        if (divisores == 2 && numero % 2 == 0) {
                             enfileiraF(&fPrimo, numero);
-                        else if(numero % 2 == 0)
+                            enfileiraF(&fPar, numero);
+                        } else if(divisores == 2 && numero % 2 != 0) {
+                            enfileiraF(&fPrimo, numero);
+                            enfileiraF(&fImpar, numero);
+                        } else if(numero % 2 == 0)
                             enfileiraF(&fPar, numero);
                         else if(numero % 2 != 0)
                             enfileiraF(&fImpar, numero);
@@ -134,8 +135,13 @@ int main() {
 
                     cout << "Escolha a opção 1 antes de continuar." << endl << endl;
                 } else {
+                    cout << "Primos: ";
                     mostraF(&fPrimo);
+
+                    cout << "Pares: ";
                     mostraF(&fPar);
+
+                    cout << "Ímpares: ";
                     mostraF(&fImpar);
                 }
                 break;
