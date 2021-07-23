@@ -15,6 +15,7 @@ int main(void)
     int menu;
     bool controle = false;
     char x[100];
+    float aux, soma = 0;
 
     inicializaF(&f1, 8);
 
@@ -95,24 +96,24 @@ int main(void)
                 if(leitura.is_open()) {
                     cout << "Arquivo aberto." << endl << endl;
 
-                    while(leitura.getline(x, sizeof(x), '\n')) {
-                        cout << numero << " ";
-                    }
+                    soma = 0;
 
-                    cout << endl;
+                    while(leitura.getline(x, sizeof(x), '\n')) {
+                        cout << x << " ";
+                        aux = atof(x);
+                        soma += aux;
+                    }
                 } else
                     cout << "Erro ao abrir o arquivo." << endl;
 
                 leitura.close();
 
+                cout << "\n\nSoma dos valores do arquivo: " << soma << endl << endl;
+
                 break;
 
             case 5:
                 system("cls");
-
-                /*ofstream escreve("revisa.txt", ios::trunc);
-
-                escreve.close();*/
 
                 cout << "Programa encerrado." << endl << endl;
 
@@ -130,4 +131,7 @@ int main(void)
         system("cls");
 
     } while(menu != 5);
+
+    //ofstream escreve("revisa.txt", ios::trunc);
+    //escreve.close();
 }
