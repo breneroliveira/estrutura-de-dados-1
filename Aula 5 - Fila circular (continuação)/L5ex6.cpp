@@ -14,8 +14,12 @@ int main(void)
     float numero;
     int menu;
     bool controle = false;
+    char x[100];
 
     inicializaF(&f1, 8);
+
+    ofstream escreve("revisa.txt", ios::out);
+    ifstream leitura;
 
     do {
         cout << "***************** MENU ******************" << endl;
@@ -78,18 +82,30 @@ int main(void)
 
                         escreve.close();
                     }
-                }
-                else
+                } else
                     cout << "Fila vazia." << endl << endl;
 
                 break;
 
-            /*case 4:
+            case 4:
                 system("cls");
 
+                leitura.open("revisa.txt", ios::in);
 
+                if(leitura.is_open()) {
+                    cout << "Arquivo aberto." << endl << endl;
 
-                break;*/
+                    while(leitura.getline(x, sizeof(x), '\n')) {
+                        cout << numero << " ";
+                    }
+
+                    cout << endl;
+                } else
+                    cout << "Erro ao abrir o arquivo." << endl;
+
+                leitura.close();
+
+                break;
 
             case 5:
                 system("cls");
