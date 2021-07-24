@@ -14,7 +14,7 @@ int main(void)
     float numero;
     int menu;
     bool controle = false;
-    char x[100];
+    char elementoArquivo;
     float aux, soma = 0;
 
     inicializaF(&f1, 8);
@@ -80,7 +80,6 @@ int main(void)
 
                     if(escreve.is_open()) {
                         escreve << "\n" << numero;
-                        //escreve << numero << "\n"; 
 
                         escreve.close();
                     }
@@ -99,10 +98,9 @@ int main(void)
 
                     soma = 0;
 
-                    while(leitura.getline(x, sizeof(x), '\n')) {
-                        cout << x << " ";
-                        aux = atof(x);
+                    while(leitura.get(elementoArquivo)) {
                         leitura >> aux;
+                        cout << aux << " ";
                         soma+=aux;
                     }
                 } else
@@ -133,7 +131,4 @@ int main(void)
         system("cls");
 
     } while(menu != 5);
-
-    //ofstream escreve("revisa.txt", ios::trunc);
-    //escreve.close();
 }
