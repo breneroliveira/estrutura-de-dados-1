@@ -14,8 +14,8 @@ int main(void)
     int valor;
     int menu;
 
-    /// Não precisamos definir o tamanho da fila
     inicializaF(&f1);
+    inicializaP(&p1);
 
     do {
         cout << "***************** MENU ******************" << endl;
@@ -64,12 +64,23 @@ int main(void)
 
                 break;
 
-            /*case 4:
+            case 4:
                 system("cls");
 
-                
+                if(!vaziaF(&f1)) {
+                    while(!vaziaF(&f1)) {
+                        desenfileiraF(&f1, &valor);
+                        empilhar(&p1, valor);
+                    }
+                    while(!vaziaP(&p1)) {
+                        desempilhar(&p1, &valor);
+                        enfileiraF(&f1, valor);
+                    }
+                    cout << "Ordem invertida." << endl << endl;
+                } else
+                    cout << "Fila vazia." << endl << endl;
 
-                break;*/
+                break;
 
             case 5:
                 system("cls");
@@ -93,4 +104,4 @@ int main(void)
 
     return EXIT_SUCCESS;
 
-} /// Final do main
+}

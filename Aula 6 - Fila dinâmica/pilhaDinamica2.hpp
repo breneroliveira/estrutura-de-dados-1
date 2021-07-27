@@ -19,12 +19,12 @@ struct Pilha
 };
 
 /// Inicializacao dos dados da pilha
-void inicializa(Pilha *p)
+void inicializaP(Pilha *p)
 {
     p->topo = nullptr; /// Define nulo para o topo da pilha
 }
 
-bool vazia(Pilha *p)
+bool vaziaP(Pilha *p)
 {
     if (!p->topo) /// (p->topo == NULL)
         return true;
@@ -49,7 +49,7 @@ bool empilhar(Pilha *p, int dado)
 bool desempilhar(Pilha *p, int *dado)
 {
     /// Se nao estiver vazia, retira valor
-    if (!vazia(p))
+    if (!vaziaP(p))
     {
         *dado = p->topo->dado; /// Pega o dado armazenado no no do topo
         No *apagar = p->topo; /// Guarda o nó do topo em uma variavel auxiliar
@@ -77,7 +77,7 @@ void mostrar(Pilha *p)
 {
     cout << "PILHA: " << endl;
 
-    if(!vazia(p))
+    if(!vaziaP(p))
     {
         cout << "--------------------------------------------" << endl;
         cout << setfill(' ') << std::setw(13) << "No" << " | ";
@@ -116,7 +116,7 @@ bool buscar(Pilha *p, int dado)
 void desalocar(Pilha *p)
 {
     int dado;
-    while(!vazia(p))
+    while(!vaziaP(p))
         desempilhar(p, &dado);
 }
 
