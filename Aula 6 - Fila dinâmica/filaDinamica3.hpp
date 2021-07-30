@@ -144,8 +144,23 @@ void concatenaF (Fila *f1, Fila *f2, Fila *fConcatenada) {
     if(vaziaF(f1) && vaziaF(f2))
         cout << "Fila A e fila B estao vazias." << endl << endl;
     else {
-        enfileiraF(fConcatenada, f1->inicio->dado);
-        //enfileiraF(fConcatenada, f2->inicio->dado);
+        NoFila *no1 = f1->inicio;
+        NoFila *no2 = f2->inicio;
+        destroiF(fConcatenada);
+        while(no1)        
+        {
+            no1 = no1->prox;
+            
+            enfileiraF(fConcatenada, f1->inicio->dado);
+            //no1->dado;
+        }
+        while(no2)        
+        {
+            no2 = no2->prox;
+            
+            enfileiraF(fConcatenada, f2->inicio->dado);
+            //no2->dado;
+        }
         mostraF(fConcatenada);
     }
 }
