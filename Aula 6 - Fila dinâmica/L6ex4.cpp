@@ -16,9 +16,9 @@ int main(void)
         cout << "***************** MENU ******************" << endl;
         cout << "*                                       *" << endl;
         cout << "* 1. Incluir na fila 1                  *" << endl;
-        cout << "* 2. Inserir número para dividir        *" << endl;
+        cout << "* 2. Inserir numero para dividir        *" << endl;
         cout << "* 3. Mostrar filas 1 e 2                *" << endl;
-        cout << "* 5. Sair                               *" << endl;
+        cout << "* 4. Sair                               *" << endl;
         cout << "*                                       *" << endl;
         cout << "*****************************************" << endl << endl;
 
@@ -42,7 +42,7 @@ int main(void)
             case 2:
                 system("cls");
 
-                cout << "Insira um número: ";
+                cout << "Insira um numero: ";
                 cin >> nInt;
 
                 separaF(nInt, &f1, &f2);

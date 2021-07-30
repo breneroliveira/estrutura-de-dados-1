@@ -141,21 +141,49 @@ void destroiF(Fila *f)
 }
 
 void separaF(int n, Fila *f1, Fila *f2) {
+    Fila fAux;
     int aux = 0;
+
     if(vaziaF(f1))
-        cout << "Fila A está vazia." << endl << endl;
+        cout << "\nFila 1 esta vazia." << endl << endl;
+    else if(!buscaF(f1, n))
+        cout << "\nO número " << n << " nao consta na fila 1." << endl << endl;
     else {
         NoFila *no1 = f1->inicio;
-        destroiF(f2);
-        while(no1)        
+        NoFila *no2 = f2->inicio;
+
+        /// Tira da f1 e coloca na f2
+        while (no1->dado != n)
         {
-            if(n == no1->dado) {
-                desenfileiraF(f1, &aux);
-                enfileiraF(f2, no1->dado);
-            }
+            desenfileiraF(f1, &aux);
+            enfileiraF(f2, aux);
             no1 = no1->prox;
         }
-        mostraF(f2);
+        no1 = no1->prox;
+        desenfileiraF(f1, &aux);
+        enfileiraF(f2, aux);
+
+        /// Tira da f1 e coloca na fAux
+        while(!vaziaF(f1))
+        {
+            desenfileiraF(f1, &aux);
+            enfileiraF(&fAux, aux);
+        }
+
+        /// Tira da f2 e coloca na f1
+        while(!vaziaF(f2))
+        {
+            desenfileiraF(f2, &aux);
+            enfileiraF(f1, aux);
+        }
+
+        /// Tira da fAux e coloca na f2
+        while(!vaziaF(&fAux))
+        {
+            desenfileiraF(&fAux, &aux);
+            enfileiraF(f2, aux);
+        }
+        cout << "\nFila dividida." << endl << endl;
     }
 }
 
