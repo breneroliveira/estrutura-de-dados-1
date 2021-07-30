@@ -149,17 +149,13 @@ void concatenaF (Fila *f1, Fila *f2, Fila *fConcatenada) {
         destroiF(fConcatenada);
         while(no1)        
         {
+            enfileiraF(fConcatenada, no1->dado);
             no1 = no1->prox;
-            
-            enfileiraF(fConcatenada, f1->inicio->dado);
-            //no1->dado;
         }
         while(no2)        
         {
+            enfileiraF(fConcatenada, no2->dado);
             no2 = no2->prox;
-            
-            enfileiraF(fConcatenada, f2->inicio->dado);
-            //no2->dado;
         }
         mostraF(fConcatenada);
     }
