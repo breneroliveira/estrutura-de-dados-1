@@ -152,7 +152,28 @@ void separaF(int n, Fila *f1, Fila *f2) {
         NoFila *no1 = f1->inicio;
         NoFila *no2 = f2->inicio;
 
-        /// Tira da f1 e coloca na f2
+        while(!vaziaF(f1)) {
+            if(no1->dado == n) {
+                while(!vaziaF(f1)) {
+                    desenfileiraF(f1, &aux);
+                    enfileiraF(f2, aux);
+                }
+            }
+
+            desenfileiraF(f1, &aux);
+            enfileiraF(&fAux, aux);
+        }
+
+        while(!vaziaF(&fAux)) {
+            desenfileiraF(&fAux, &aux);
+            enfileiraF(f1, aux);
+        }
+
+        mostraF(f1);
+        mostraF(f2);
+        mostraF(&fAux);
+
+        /*/// Tira da f1 e coloca na f2
         while (no1->dado != n)
         {
             desenfileiraF(f1, &aux);
@@ -183,7 +204,7 @@ void separaF(int n, Fila *f1, Fila *f2) {
             desenfileiraF(&fAux, &aux);
             enfileiraF(f2, aux);
         }
-        cout << "\nFila dividida." << endl << endl;
+        cout << "\nFila dividida." << endl << endl;*/
     }
 }
 
