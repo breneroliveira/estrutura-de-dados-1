@@ -147,23 +147,26 @@ void separaF(int n, Fila *f1, Fila *f2) {
     if(vaziaF(f1))
         cout << "\nFila 1 esta vazia." << endl << endl;
     else if(!buscaF(f1, n))
-        cout << "\nO número " << n << " nao consta na fila 1." << endl << endl;
+        cout << "\nO numero " << n << " nao consta na fila 1." << endl << endl;
     else {
         NoFila *no1 = f1->inicio;
         NoFila *no2 = f2->inicio;
 
         while(!vaziaF(f1)) {
+            desenfileiraF(f1, &aux);
+            enfileiraF(&fAux, aux);
+            no1 = no1->prox;
             if(no1->dado == n) {
+                desenfileiraF(f1, &aux);
+                enfileiraF(&fAux, aux);
                 while(!vaziaF(f1)) {
                     desenfileiraF(f1, &aux);
                     enfileiraF(f2, aux);
                 }
+                break;
             }
-
-            desenfileiraF(f1, &aux);
-            enfileiraF(&fAux, aux);
-        }
-
+            
+        } 
         while(!vaziaF(&fAux)) {
             desenfileiraF(&fAux, &aux);
             enfileiraF(f1, aux);
