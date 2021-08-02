@@ -149,65 +149,20 @@ void separaF(int n, Fila *f1, Fila *f2) {
     else if(!buscaF(f1, n))
         cout << "\nO numero " << n << " nao consta na fila 1." << endl << endl;
     else {
-        NoFila *no1 = f1->inicio;
-        NoFila *no2 = f2->inicio;
-
         while(!vaziaF(f1)) {
             desenfileiraF(f1, &aux);
             enfileiraF(&fAux, aux);
-            no1 = no1->prox;
-            if(no1->dado == n) {
-                desenfileiraF(f1, &aux);
-                enfileiraF(&fAux, aux);
+            if(aux == n) {
                 while(!vaziaF(f1)) {
                     desenfileiraF(f1, &aux);
                     enfileiraF(f2, aux);
                 }
-                break;
             }
-            
         } 
         while(!vaziaF(&fAux)) {
             desenfileiraF(&fAux, &aux);
             enfileiraF(f1, aux);
         }
-
-        mostraF(f1);
-        mostraF(f2);
-        mostraF(&fAux);
-
-        /*/// Tira da f1 e coloca na f2
-        while (no1->dado != n)
-        {
-            desenfileiraF(f1, &aux);
-            enfileiraF(f2, aux);
-            no1 = no1->prox;
-        }
-        no1 = no1->prox;
-        desenfileiraF(f1, &aux);
-        enfileiraF(f2, aux);
-
-        /// Tira da f1 e coloca na fAux
-        while(!vaziaF(f1))
-        {
-            desenfileiraF(f1, &aux);
-            enfileiraF(&fAux, aux);
-        }
-
-        /// Tira da f2 e coloca na f1
-        while(!vaziaF(f2))
-        {
-            desenfileiraF(f2, &aux);
-            enfileiraF(f1, aux);
-        }
-
-        /// Tira da fAux e coloca na f2
-        while(!vaziaF(&fAux))
-        {
-            desenfileiraF(&fAux, &aux);
-            enfileiraF(f2, aux);
-        }
-        cout << "\nFila dividida." << endl << endl;*/
     }
 }
 
