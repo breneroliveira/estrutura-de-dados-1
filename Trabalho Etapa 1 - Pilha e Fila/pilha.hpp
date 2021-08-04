@@ -21,7 +21,7 @@ struct Pilha
 {
     No *topo;
 
-    Pilha(){ /// Construtor. Usado para inicializar os dados das variaveis da struct
+    Pilha() { /// Construtor. Usado para inicializar os dados das variaveis da struct
         topo = nullptr;
     }
 };
@@ -47,7 +47,7 @@ bool empilhar(Pilha *p, int dado)
     if (!novo) /// Sistema não conseguiu alocar a memoria
         return false;
 
-    novo->dado = dado; /// Armazena a informacao no no
+    novo-> = dado; /// Armazena a informacao no no
     novo->prox = p->topo; /// O proximo elemento do no criado sera o ultimo elemento da pilha
     p->topo = novo; /// Atualiza o topo da pilha para o no criado
     return true;

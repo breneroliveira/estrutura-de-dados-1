@@ -4,7 +4,7 @@
 
 using namespace std;
 
-//#include "pilha.hpp"
+#include "pilha.hpp"
 #include "filaPessoa.hpp"
 #include "filaTransportadora.hpp"
 
@@ -20,14 +20,14 @@ int main(void)
     DadosPessoa pessoa;
     DadosTransportadora transportadora;
 
-    int auxPcd;
-
     char menu;
 
     do {
         cout << "******************* MENU *********************" << endl;
         cout << "*                                            *" << endl;
         cout << "* a) Incluir pessoa na fila de doacao;       *" << endl;
+        cout << "* b) Incluir empresa na fila de retirada;    *" << endl;
+        cout << "* c) Atender uma pessoa da fila;             *" << endl;
         cout << "* n) Encerrar programa.                      *" << endl;
         cout << "*                                            *" << endl;
         cout << "**********************************************" << endl << endl;
@@ -59,50 +59,101 @@ int main(void)
                 fflush(stdin);
 
                 cout << "Pessoa com deficiencia (1 = sim/0 = nao): ";
-                //cin >> pessoa.pcd;
-                cin >> auxPcd;
+                cin >> pessoa.pcd;
                 fflush(stdin);
 
-                while(auxPcd != 1 && auxPcd != 0) {
-                    cout << "Digite 1 para 'sim' ou 0 para 'nao': ";
-                    //cin >> pessoa.pcd;
-                    cin >> auxPcd;
-                    fflush(stdin);
-                }
-
-                pessoa.pcd = auxPcd;
-
-                cout << "Gestante: ";
+                cout << "Gestante (1 = sim/0 = nao): ";
                 cin >> pessoa.gestante;
                 fflush(stdin);
 
-                if(enfileiraFPessoa(&fDoaPrioritaria, pessoa))
-                    cout << "\nDados de " << pessoa.nomePessoa << " inseridos na fila 1." << endl << endl;
+                if(pessoa.gestante == true || pessoa.pcd == true || pessoa.idade > 65) {
+                    if(enfileiraFPessoa(&fDoaPrioritaria, pessoa))
+                        cout << "\nDados de " << pessoa.nomePessoa << " inseridos na fila prioritaria." << endl << endl;
+                } else {
+                    if(enfileiraFPessoa(&fDoaNaoPrioritaria, pessoa))
+                        cout << "\nDados de " << pessoa.nomePessoa << " inseridos na fila nao prioritaria." << endl << endl;
+                }
 
                 mostraFPessoa(&fDoaPrioritaria);
+                mostraFPessoa(&fDoaNaoPrioritaria);
 
                 break;
 
-            /*case 2:
+            case 'b':
                 system("cls");
 
-                cout << "Insira um numero: ";
-                cin >> nInt;
+                cout << "********** Inclusao de transportadora **********" << endl;
+                cout << "Nome: ";
+                getline(cin, transportadora.nomeTransportadora);
+                fflush(stdin);
 
-                separaF(nInt, &f1, &f2);
+                cout << "CNPJ: ";
+                cin >> transportadora.cnpj;
+                fflush(stdin);
+
+                cout << "Tipo: ";
+                cin >> transportadora.tipo;
+                fflush(stdin);
+
+                if(transportadora.tipo == 'l') {
+                    if(enfileiraFTransportadora(&fRetiraPrioritaria, transportadora))
+                        cout << "\nDados de " << transportadora.nomeTransportadora << " inseridos na fila prioritaria." << endl << endl;
+                } else {
+                    if(enfileiraFTransportadora(&fRetiraNaoPrioritaria, transportadora))
+                        cout << "\nDados de " << transportadora.nomeTransportadora << " inseridos na fila nao prioritaria." << endl << endl;
+                }
+
+                mostraFTransportadora(&fRetiraPrioritaria);
+                mostraFTransportadora(&fRetiraNaoPrioritaria);
 
                 break;
 
-            case 3:
+            case 'c':
                 system("cls");
 
-                cout << "*** FILA 1 ***" << endl;
-                mostraF(&f1);
+                cout << "********** Atendimento a pessoa **********" << endl;
+                if(!vaziaFPessoa(&fDoaPrioritaria)) {
+                    desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
+                    cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila prioritaria." << endl << endl;
+                } else if(!vaziaFPessoa(&fDoaNaoPrioritaria)) {
+                    desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
+                    cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila nao prioritaria." << endl << endl;
+                } else
+                    cout << "Ambas as filas estao vazias." << endl << endl;
 
-                cout << "*** FILA 2 ***" << endl;
-                mostraF(&f2);
+                break;
 
-                break;*/
+            case 'd':
+                system("cls");
+
+                cout << "********** Atendimento a transportadora **********" << endl;
+                if(!vaziaFTransportadora(&fRetiraPrioritaria)) {
+                    desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
+                    cout << "A transportadora " << transportadora.nomeTransportadora << " foi retirada da fila prioritaria." << endl << endl;
+                } else if(!vaziaFTransportadora(&fRetiraNaoPrioritaria)) {
+                    desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
+                    cout << "A transportadora " << transportadora.nomeTransportadora << " foi retirada da fila nao prioritaria." << endl << endl;
+                } else
+                    cout << "Ambas as filas estao vazias." << endl << endl;
+
+                break;
+
+            case 'z':
+                system("cls");
+
+                cout << "Fila de PESSOA PRIORITARIA: ";
+                mostraFPessoa(&fDoaPrioritaria);
+
+                cout << "Fila de PESSOA NAO PRIORITARIA: ";
+                mostraFPessoa(&fDoaNaoPrioritaria);
+
+                cout << "Fila de TRANSPORTADORA PRIORITARIA: ";
+                mostraFTransportadora(&fRetiraPrioritaria);
+
+                cout << "Fila de TRANSPORTADORA NAO PRIORITARIA: ";
+                mostraFTransportadora(&fRetiraNaoPrioritaria);
+
+                break;
 
             case 'n':
                 system("cls");
