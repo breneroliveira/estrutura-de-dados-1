@@ -9,7 +9,6 @@
 using namespace std;
 
 /// Ler os dados do objeto quando inserir na pilha
-
 struct No
 {
     DadosObjeto objeto; /// Informacao do no
