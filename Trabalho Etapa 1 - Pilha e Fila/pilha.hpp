@@ -1,4 +1,4 @@
-/*#ifndef _HPP_PILHA_DINAMICA
+#ifndef _HPP_PILHA_DINAMICA
 #define _HPP_PILHA_DINAMICA
 
 #include "estruturas.hpp"
@@ -41,7 +41,7 @@ bool vaziaP(Pilha *p)
 }
 
 /// Push
-bool empilhar(Pilha *p, int dado)
+bool empilhar(Pilha *p, DadosPessoa objeto, DadosObjeto pessoa)
 {
     No *novo =  new No(); /// Cria um novo nó
     if (!novo) /// Sistema não conseguiu alocar a memoria
@@ -54,7 +54,7 @@ bool empilhar(Pilha *p, int dado)
 }
 
 /// Pop
-bool desempilhar(Pilha *p, int *dado)
+bool desempilhar(Pilha *p, DadosPessoa *objeto, DadosObjeto *pessoa)
 {
     /// Se nao estiver vazia, retira valor
     if (!vaziaP(p))
@@ -128,4 +128,4 @@ void desalocar(Pilha *p)
         desempilhar(p, &dado);
 }
 
-#endif /// _HPP_PILHA*/
+#endif /// _HPP_PILHA

@@ -14,7 +14,7 @@ int main(void)
 
     FilaPessoa fDoaPrioritaria, fDoaNaoPrioritaria;
     FilaTransportadora fRetiraPrioritaria, fRetiraNaoPrioritaria;
-    //Pilha pLivro, pEquipamento;
+    Pilha pLivro, pEquipamento;
 
     DadosObjeto objeto;
     DadosPessoa pessoa;
@@ -28,7 +28,9 @@ int main(void)
         cout << "* a) Incluir pessoa na fila de doacao;       *" << endl;
         cout << "* b) Incluir empresa na fila de retirada;    *" << endl;
         cout << "* c) Atender uma pessoa da fila;             *" << endl;
+        cout << "* d) Atender uma empresa da fila;            *" << endl;
         cout << "* n) Encerrar programa.                      *" << endl;
+        cout << "* z) Mostra tudo.                            *" << endl;
         cout << "*                                            *" << endl;
         cout << "**********************************************" << endl << endl;
 
@@ -74,9 +76,6 @@ int main(void)
                         cout << "\nDados de " << pessoa.nomePessoa << " inseridos na fila nao prioritaria." << endl << endl;
                 }
 
-                mostraFPessoa(&fDoaPrioritaria);
-                mostraFPessoa(&fDoaNaoPrioritaria);
-
                 break;
 
             case 'b':
@@ -103,9 +102,6 @@ int main(void)
                         cout << "\nDados de " << transportadora.nomeTransportadora << " inseridos na fila nao prioritaria." << endl << endl;
                 }
 
-                mostraFTransportadora(&fRetiraPrioritaria);
-                mostraFTransportadora(&fRetiraNaoPrioritaria);
-
                 break;
 
             case 'c':
@@ -113,10 +109,34 @@ int main(void)
 
                 cout << "********** Atendimento a pessoa **********" << endl;
                 if(!vaziaFPessoa(&fDoaPrioritaria)) {
+                    cout << "Objeto doado (l = ivro/e = equipamento): ";
+                    cin >> objeto.tipo;
+
+                    cout << "Descricao: ";
+                    cin >> objeto.descricao;
+
                     desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
+
+                    if(objeto.tipo == 'l')
+                        empilhar(&pLivro, pessoa, objeto);
+                    else
+                        empilhar(&pEquipamento, pessoa, objeto);
+
                     cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila prioritaria." << endl << endl;
                 } else if(!vaziaFPessoa(&fDoaNaoPrioritaria)) {
+                    cout << "Objeto doado (l = ivro/e = equipamento): ";
+                    cin >> objeto.tipo;
+
+                    cout << "Descricao: ";
+                    cin >> objeto.descricao;
+
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
+
+                    if(objeto.tipo == 'l')
+                        empilhar(&pLivro, pessoa, objeto);
+                    else
+                        empilhar(&pEquipamento, pessoa, objeto);
+
                     cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila nao prioritaria." << endl << endl;
                 } else
                     cout << "Ambas as filas estao vazias." << endl << endl;
