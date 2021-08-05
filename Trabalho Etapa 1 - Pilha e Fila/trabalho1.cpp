@@ -52,6 +52,8 @@ int main(void)
                 cin >> pessoa.sexo;
                 fflush(stdin);
 
+                pessoa.sexo = toupper(pessoa.sexo);
+
                 cout << "CPF: ";
                 cin >> pessoa.cpf;
                 fflush(stdin);
@@ -109,8 +111,11 @@ int main(void)
 
                 cout << "********** Atendimento a pessoa **********" << endl;
                 if(!vaziaFPessoa(&fDoaPrioritaria)) {
+                    //cout << "Pessoa sendo atendida: " << pessoa.nomePessoa << endl;
                     cout << "Objeto doado (l = ivro/e = equipamento): ";
                     cin >> objeto.tipo;
+
+                    objeto.tipo = toupper(objeto.tipo);
 
                     cout << "Descricao: ";
                     cin >> objeto.descricao;
@@ -122,24 +127,27 @@ int main(void)
                     else
                         empilhar(&pEquipamento, pessoa, objeto);
 
-                    cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila prioritaria." << endl << endl;
+                    cout << "\nA pessoa " << pessoa.nomePessoa << " foi retirada da fila prioritaria." << endl << endl;
                 } else if(!vaziaFPessoa(&fDoaNaoPrioritaria)) {
+                    //cout << "Pessoa sendo atendida: " << pessoa.nomePessoa << endl;
                     cout << "Objeto doado (l = ivro/e = equipamento): ";
                     cin >> objeto.tipo;
+
+                    objeto.tipo = toupper(objeto.tipo);
 
                     cout << "Descricao: ";
                     cin >> objeto.descricao;
 
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
 
-                    if(objeto.tipo == 'l')
+                    if(objeto.tipo == 'L')
                         empilhar(&pLivro, pessoa, objeto);
                     else
                         empilhar(&pEquipamento, pessoa, objeto);
 
-                    cout << "A pessoa " << pessoa.nomePessoa << " foi retirada da fila nao prioritaria." << endl << endl;
-                } else
-                    cout << "Ambas as filas estao vazias." << endl << endl;
+                    cout << "\nA pessoa " << pessoa.nomePessoa << " foi retirada da fila nao prioritaria." << endl << endl;
+                } else if(vaziaFPessoa(&fDoaPrioritaria) && vaziaFPessoa(&fDoaNaoPrioritaria))
+                    cout << "\nAmbas as filas estao vazias." << endl << endl;
 
                 break;
 
@@ -172,6 +180,12 @@ int main(void)
 
                 cout << "Fila de TRANSPORTADORA NAO PRIORITARIA: ";
                 mostraFTransportadora(&fRetiraNaoPrioritaria);
+
+                cout << "Pilha de doacao de LIVROS: ";
+                mostrar(&pLivro);
+
+                cout << "Pilha de doacao de EQUIPAMENTOS: ";
+                mostrar(&pEquipamento);
 
                 break;
 

@@ -41,20 +41,29 @@ bool vaziaP(Pilha *p)
 }
 
 /// Push
-bool empilhar(Pilha *p, DadosPessoa objeto, DadosObjeto pessoa)
+bool empilhar(Pilha *p, DadosPessoa pessoa, DadosObjeto objeto)
 {
     No *novo =  new No(); /// Cria um novo nó
     if (!novo) /// Sistema não conseguiu alocar a memoria
         return false;
 
-    novo-> = dado; /// Armazena a informacao no no
+    novo->pessoa.nomePessoa = pessoa.nomePessoa; /// Armazena a informacao no no da pessoa
+    novo->pessoa.sexo = pessoa.sexo;
+    novo->pessoa.cpf = pessoa.cpf;
+    novo->pessoa.idade = pessoa.idade;
+    novo->pessoa.pcd = pessoa.pcd;
+    novo->pessoa.gestante = pessoa.gestante;
+
+    novo->objeto.tipo = objeto.tipo; /// Armazena a informacao no no da pessoa
+    novo->objeto.descricao = objeto.descricao;
+
     novo->prox = p->topo; /// O proximo elemento do no criado sera o ultimo elemento da pilha
     p->topo = novo; /// Atualiza o topo da pilha para o no criado
     return true;
 }
 
-/// Pop
-bool desempilhar(Pilha *p, DadosPessoa *objeto, DadosObjeto *pessoa)
+/*/// Pop
+bool desempilhar(Pilha *p, DadosPessoa *pessoa, DadosObjeto *objeto)
 {
     /// Se nao estiver vazia, retira valor
     if (!vaziaP(p))
@@ -70,7 +79,7 @@ bool desempilhar(Pilha *p, DadosPessoa *objeto, DadosObjeto *pessoa)
 }
 
 /// Peek
-bool espiar(Pilha* p, int *dado)
+bool espiarP(Pilha* p, int *dado)
 {
     if (p->topo)
     {
@@ -79,7 +88,7 @@ bool espiar(Pilha* p, int *dado)
     }
     else
         return false;
-}
+}*/
 
 void mostrar(Pilha *p)
 {
@@ -87,25 +96,40 @@ void mostrar(Pilha *p)
 
     if(!vaziaP(p))
     {
-        cout << "--------------------------------------------" << endl;
-        cout << setfill(' ') << std::setw(13) << "No" << " | ";
-        cout << setfill(' ') << std::setw(13) << "Prox" << " | ";
-        cout << setfill(' ') << std::setw(10) << "Dado" << " |" << endl;
-        cout << "--------------------------------------------" << endl;
+        cout << "------------------------------------------------------------------------------------------------------------------" << endl;
+        cout << setfill(' ') << std::setw(11) << "No" << " | ";
+        cout << setfill(' ') << std::setw(9) << "Prox" << " | ";
+        cout << setfill(' ') << std::setw(14) << "Nome" << " | ";
+        cout << setfill(' ') << std::setw(2) << "Sexo" << " | ";
+        cout << setfill(' ') << std::setw(12) << "CPF" << " | ";
+        cout << setfill(' ') << std::setw(1) << "Idade" << " | ";
+        cout << setfill(' ') << std::setw(1) << "PcD" << " | ";
+        cout << setfill(' ') << std::setw(1) << "Objeto" << " | ";
+        cout << setfill(' ') << std::setw(13) << "Descricao" << " | ";
+        cout << setfill(' ') << std::setw(1) << "Gestante" << " | " << endl;
+        cout << "------------------------------------------------------------------------------------------------------------------" << endl;
         No *no = p->topo;
         while (no != NULL)
         {
-            cout << setfill(' ') << std::setw(13) << no << " | ";
-            cout << setfill(' ') << std::setw(13) << no->prox << " | ";
-            cout << setfill(' ') << std::setw(10) << no->dado << " |" << endl;
-
+            cout << setfill(' ') << std::setw(11) << no << " | ";
+            cout << setfill(' ') << std::setw(9) << no->prox << " | ";
+            cout << setfill(' ') << std::setw(10) << no->pessoa.nomePessoa << " | ";
+            cout << setfill(' ') << std::setw(4) << no->pessoa.sexo << " | ";
+            cout << setfill(' ') << std::setw(12) << no->pessoa.cpf << " | ";
+            cout << setfill(' ') << std::setw(5) << no->pessoa.idade << " | ";
+            cout << setfill(' ') << std::setw(3) << no->pessoa.pcd << " | ";
+            cout << setfill(' ') << std::setw(6) << no->objeto.tipo << " | ";
+            cout << setfill(' ') << std::setw(12) << no->objeto.descricao << " | ";
+            cout << setfill(' ') << std::setw(9) << no->pessoa.gestante << " | " << endl;
+            cout << "------------------------------------------------------------------------------------------------------------------" << endl;
             no = no->prox;
         }
-        cout << "--------------------------------------------" << endl;
-    }
+        cout << endl;
+    } else
+        cout << "A pilha esta vazia" << endl << endl;
 }
 
-/// Retorna true se o valor existe na pilha
+/*/// Retorna true se o valor existe na pilha
 /// Retorna false se o valor nao existe na pilha
 bool buscar(Pilha *p, int dado)
 {
@@ -126,6 +150,6 @@ void desalocar(Pilha *p)
     int dado;
     while(!vaziaP(p))
         desempilhar(p, &dado);
-}
+}*/
 
 #endif /// _HPP_PILHA
