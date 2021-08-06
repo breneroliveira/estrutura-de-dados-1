@@ -18,10 +18,11 @@ struct No
 
 struct Pilha
 {
-    No *topo;
+    No *topo, *topo2;
 
     Pilha() { /// Construtor. Usado para inicializar os dados das variaveis da struct
         topo = nullptr;
+        topo2 = nullptr;
     }
 };
 
@@ -61,23 +62,25 @@ bool empilhar(Pilha *p, DadosPessoa pessoa, DadosObjeto objeto)
     return true;
 }
 
-/*/// Pop
+/// Pop
 bool desempilhar(Pilha *p, DadosPessoa *pessoa, DadosObjeto *objeto)
 {
     /// Se nao estiver vazia, retira valor
     if (!vaziaP(p))
     {
-        *dado = p->topo->dado; /// Pega o dado armazenado no no do topo
+        *pessoa = p->topo->pessoa; /// Pega o dado armazenado no no do topo
+        *objeto = p->topo->objeto; /// Pega o dado armazenado no no do topo
         No *apagar = p->topo; /// Guarda o nó do topo em uma variavel auxiliar
         p->topo = p->topo->prox; /// Atualiza o topo para o proximo elemento
         delete apagar;  /// Libera a memoria
+        
         return true;
     }
     else
         return false;
 }
 
-/// Peek
+/*/// Peek
 bool espiarP(Pilha* p, int *dado)
 {
     if (p->topo)
@@ -103,9 +106,9 @@ void mostrar(Pilha *p)
         cout << setfill(' ') << std::setw(12) << "CPF" << " | ";
         cout << setfill(' ') << std::setw(1) << "Idade" << " | ";
         cout << setfill(' ') << std::setw(1) << "PcD" << " | ";
+        cout << setfill(' ') << std::setw(1) << "Gestante" << " | ";
         cout << setfill(' ') << std::setw(1) << "Objeto" << " | ";
-        cout << setfill(' ') << std::setw(13) << "Descricao" << " | ";
-        cout << setfill(' ') << std::setw(1) << "Gestante" << " | " << endl;
+        cout << setfill(' ') << std::setw(13) << "Descricao" << " | " << endl;
         cout << "------------------------------------------------------------------------------------------------------------------" << endl;
         No *no = p->topo;
         while (no != NULL)
@@ -117,9 +120,9 @@ void mostrar(Pilha *p)
             cout << setfill(' ') << std::setw(12) << no->pessoa.cpf << " | ";
             cout << setfill(' ') << std::setw(5) << no->pessoa.idade << " | ";
             cout << setfill(' ') << std::setw(3) << no->pessoa.pcd << " | ";
+            cout << setfill(' ') << std::setw(9) << no->pessoa.gestante << " | ";
             cout << setfill(' ') << std::setw(6) << no->objeto.tipo << " | ";
-            cout << setfill(' ') << std::setw(12) << no->objeto.descricao << " | ";
-            cout << setfill(' ') << std::setw(9) << no->pessoa.gestante << " | " << endl;
+            cout << setfill(' ') << std::setw(12) << no->objeto.descricao << " | " << endl;
             cout << "------------------------------------------------------------------------------------------------------------------" << endl;
             no = no->prox;
         }

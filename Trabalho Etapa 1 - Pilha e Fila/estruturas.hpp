@@ -15,7 +15,7 @@ struct DadosPessoa
 {
     string nomePessoa;
     char sexo;
-    long long cpf; //fazer com string
+    string cpf;
     int idade;
     bool pcd;
     bool gestante;
@@ -24,7 +24,7 @@ struct DadosPessoa
 struct DadosTransportadora
 {
     string nomeTransportadora;
-    int cnpj;
+    string cnpj;
     char tipo;
 };
 
