@@ -1,4 +1,5 @@
 #include <iostream>
+#include <fstream>
 #include <string>
 #include <sstream>
 
@@ -19,6 +20,11 @@ int main(void)
     DadosObjeto objeto;
     DadosPessoa pessoa;
     DadosTransportadora transportadora;
+
+    ofstream escreve("doacao.txt", ios::out);
+
+    stringstream sso;
+    string teste;
 
     char menu;
 
@@ -96,10 +102,12 @@ int main(void)
                 cin >> transportadora.tipo;
                 fflush(stdin);
 
-                if(transportadora.tipo == 'l') {
+                transportadora.tipo = toupper(transportadora.tipo);
+
+                if(transportadora.tipo == 'L') {
                     if(enfileiraFTransportadora(&fRetiraPrioritaria, transportadora))
                         cout << "\nDados de " << transportadora.nomeTransportadora << " inseridos na fila prioritaria." << endl << endl;
-                } else {
+                } else if(transportadora.tipo == 'E') {
                     if(enfileiraFTransportadora(&fRetiraNaoPrioritaria, transportadora))
                         cout << "\nDados de " << transportadora.nomeTransportadora << " inseridos na fila nao prioritaria." << endl << endl;
                 }
@@ -111,38 +119,69 @@ int main(void)
 
                 cout << "********** Atendimento a pessoa **********" << endl;
                 if(!vaziaFPessoa(&fDoaPrioritaria)) {
-                    //cout << "Pessoa sendo atendida: " << pessoa.nomePessoa << endl;
+                    cout << "Pessoa sendo atendida: ";
+                    primeiraPessoaF(&fDoaPrioritaria);
+
                     cout << "Objeto doado (l = ivro/e = equipamento): ";
                     cin >> objeto.tipo;
+                    fflush(stdin);
 
                     objeto.tipo = toupper(objeto.tipo);
 
                     cout << "Descricao: ";
-                    cin >> objeto.descricao;
+                    getline(cin, objeto.descricao);
+                    fflush(stdin);
 
                     desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
 
-                    if(objeto.tipo == 'l')
+                    ofstream escreve("doacao.txt", ios::app);
+
+                    if(escreve.is_open()) {
+                        cout << "\nAdicionada a ficha." << endl;
+                        escreve << "\n# " << pessoa.nomePessoa << " # " << pessoa.sexo << " # " << pessoa.cpf <<  " # " << pessoa.idade << " # " << pessoa.pcd << " # " << pessoa.gestante << " # " << objeto.tipo << " # " << objeto.descricao;
+
+                        escreve.close();
+                    } else
+                        cout << "Erro ao abrir o arquivo." << endl;
+
+                    //sso << pessoa.idade;
+                    //sso >> teste;
+
+                    if(objeto.tipo == 'L')
                         empilhar(&pLivro, pessoa, objeto);
-                    else
+                    else if(objeto.tipo == 'E')
                         empilhar(&pEquipamento, pessoa, objeto);
 
                     cout << "\nA pessoa " << pessoa.nomePessoa << " foi retirada da fila prioritaria." << endl << endl;
-                } else if(!vaziaFPessoa(&fDoaNaoPrioritaria)) {
-                    //cout << "Pessoa sendo atendida: " << pessoa.nomePessoa << endl;
+                } else if(!vaziaFPessoa(&fDoaNaoPrioritaria) && vaziaFPessoa(&fDoaPrioritaria)) {
+                    cout << "Pessoa sendo atendida: ";
+                    primeiraPessoaF(&fDoaNaoPrioritaria);
+
                     cout << "Objeto doado (l = ivro/e = equipamento): ";
                     cin >> objeto.tipo;
+                    fflush(stdin);
 
                     objeto.tipo = toupper(objeto.tipo);
 
                     cout << "Descricao: ";
-                    cin >> objeto.descricao;
+                    getline(cin, objeto.descricao);
+                    fflush(stdin);
 
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
 
+                    ofstream escreve("doacao.txt", ios::app);
+
+                    if(escreve.is_open()) {
+                        cout << "\nAdicionada a ficha." << endl;
+                        escreve << "\n# " << pessoa.nomePessoa << " # " << pessoa.sexo << " # " << pessoa.cpf <<  " # " << pessoa.idade << " # " << pessoa.pcd << " # " << pessoa.gestante << " # " << objeto.tipo << " # " << objeto.descricao;
+
+                        escreve.close();
+                    } else
+                        cout << "Erro ao abrir o arquivo." << endl;
+
                     if(objeto.tipo == 'L')
                         empilhar(&pLivro, pessoa, objeto);
-                    else
+                    else if(objeto.tipo == 'E')
                         empilhar(&pEquipamento, pessoa, objeto);
 
                     cout << "\nA pessoa " << pessoa.nomePessoa << " foi retirada da fila nao prioritaria." << endl << endl;
@@ -158,7 +197,7 @@ int main(void)
                 if(!vaziaFTransportadora(&fRetiraPrioritaria)) {
                     desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
                     cout << "A transportadora " << transportadora.nomeTransportadora << " foi retirada da fila prioritaria." << endl << endl;
-                } else if(!vaziaFTransportadora(&fRetiraNaoPrioritaria)) {
+                } else if(!vaziaFTransportadora(&fRetiraNaoPrioritaria) && vaziaFTransportadora(&fRetiraPrioritaria)) {
                     desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
                     cout << "A transportadora " << transportadora.nomeTransportadora << " foi retirada da fila nao prioritaria." << endl << endl;
                 } else

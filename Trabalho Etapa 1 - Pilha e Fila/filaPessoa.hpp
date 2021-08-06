@@ -153,4 +153,10 @@ void destroiFPessoa(FilaPessoa *f)
     f->fim = nullptr;
 }
 
+/// Mostra o primeiro elemento da fila
+void primeiraPessoaF(FilaPessoa *f)
+{
+    cout << f->inicio->dado.nomePessoa << endl << endl;
+}
+
 #endif /// _HPP_FILA1_DINAMICA
