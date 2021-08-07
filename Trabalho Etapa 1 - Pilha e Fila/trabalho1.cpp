@@ -25,6 +25,7 @@ int main(void)
     ofstream escreveRetira("retiradas.txt", ios::out);
 
     int qtdObjetosRetirados = 0, contRetirada = 0;
+    char auxTipoObjeto;
 
     stringstream sso;
     string teste;
@@ -267,17 +268,43 @@ int main(void)
                     cin >> qtdObjetosRetirados;
 
                     cout << "Tipo de carga (l = Livro/e = Equipamento): ";
-                    cin >> objeto.tipo;
+                    //cin >> objeto.tipo;
+                    cin >> auxTipoObjeto;
 
-                    objeto.tipo = toupper(objeto.tipo);
+                    auxTipoObjeto = toupper(auxTipoObjeto);
 
-                    while(objeto.tipo != 'L' && objeto.tipo != 'E') {
+                    while(auxTipoObjeto != 'L' && auxTipoObjeto != 'E') {
+                        cout << "Insira o tipo de carga novamente (l = Livro/e = Equipamento): ";
+                        cin >> auxTipoObjeto;
+                        fflush(stdin);
+
+                        auxTipoObjeto = toupper(auxTipoObjeto);
+                    }
+
+                    if(auxTipoObjeto == 'L' && vaziaP(&pLivro)) {
+                        cout << "\nNao ha livros para serem retirados." << endl;
+                        desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
+                        cout << "\nA transportadora " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
+                        break;
+                    } else if(auxTipoObjeto == 'E' && vaziaP(&pEquipamento)) {
+                        cout << "\nNao ha equipamentos para serem retirados." << endl;
+                        desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
+                        cout << "\nA transportadora " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
+                        break;
+                    }
+
+                    //objeto.tipo = toupper(objeto.tipo);
+                    //auxTipoObjeto = toupper(auxTipoObjeto);
+
+                    objeto.tipo = auxTipoObjeto;
+
+                    /*while(objeto.tipo != 'L' && objeto.tipo != 'E') {
                         cout << "Insira o tipo de carga novamente (l = Livro/e = Equipamento): ";
                         cin >> objeto.tipo;
                         fflush(stdin);
 
                         objeto.tipo = toupper(objeto.tipo);
-                    }
+                    }*/
 
                     contRetirada = 0;
 
@@ -303,28 +330,54 @@ int main(void)
                     cout << "\nA transportadora " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
                 } else if(!vaziaFTransportadora(&fRetiraNaoPrioritaria) && vaziaFTransportadora(&fRetiraPrioritaria)) {
                     cout << "Transportadora sendo atendida: ";
-                    primeiraTransportadoraF(&fRetiraPrioritaria);
+                    primeiraTransportadoraF(&fRetiraNaoPrioritaria);
 
-                    cout << "Quantidade de objetos que serão retirados: ";
+                    cout << "Quantidade de objetos que serao retirados: ";
                     cin >> qtdObjetosRetirados;
 
                     cout << "Tipo de carga (l = Livro/e = Equipamento): ";
-                    cin >> objeto.tipo;
+                    //cin >> objeto.tipo;
+                    cin >> auxTipoObjeto;
 
-                    objeto.tipo = toupper(objeto.tipo);
+                    auxTipoObjeto = toupper(auxTipoObjeto);
 
-                    while(objeto.tipo != 'L' && objeto.tipo != 'E') {
+                    while(auxTipoObjeto != 'L' && auxTipoObjeto != 'E') {
+                        cout << "Insira o tipo de carga novamente (l = Livro/e = Equipamento): ";
+                        cin >> auxTipoObjeto;
+                        fflush(stdin);
+
+                        auxTipoObjeto = toupper(auxTipoObjeto);
+                    }
+
+                    if(auxTipoObjeto == 'L' && vaziaP(&pLivro)) {
+                        cout << "\nNao ha livros para serem retirados." << endl;
+                        desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
+                        cout << "\nA transportadora " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
+                        break;
+                    } else if(auxTipoObjeto == 'E' && vaziaP(&pEquipamento)) {
+                        cout << "\nNao ha equipamentos para serem retirados." << endl;
+                        desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
+                        cout << "\nA transportadora " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
+                        break;
+                    }
+
+                    //objeto.tipo = toupper(objeto.tipo);
+                    //auxTipoObjeto = toupper(auxTipoObjeto);
+
+                    objeto.tipo = auxTipoObjeto;
+
+                    /*while(objeto.tipo != 'L' && objeto.tipo != 'E') {
                         cout << "Insira o tipo de carga novamente (l = Livro/e = Equipamento): ";
                         cin >> objeto.tipo;
                         fflush(stdin);
 
                         objeto.tipo = toupper(objeto.tipo);
-                    }
+                    }*/
 
                     contRetirada = 0;
 
                     while(contRetirada < qtdObjetosRetirados) {
-                        desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
+                        desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
 
                         if(objeto.tipo == 'L')
                             desempilhar(&pLivro, &pessoa, &objeto);
