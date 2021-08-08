@@ -93,8 +93,6 @@ bool espiarP(Pilha* p, int *dado)
 
 void mostrar(Pilha *p)
 {
-    cout << "PILHA: " << endl;
-
     if(!vaziaP(p))
     {
         cout << "------------------------------------------------------------------------------------------------------------------" << endl;

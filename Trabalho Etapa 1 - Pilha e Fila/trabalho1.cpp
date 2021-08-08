@@ -38,6 +38,7 @@ int main(void)
         cout << "* b) Incluir empresa na fila de retirada;    *" << endl;
         cout << "* c) Atender uma pessoa da fila;             *" << endl;
         cout << "* d) Atender uma empresa da fila;            *" << endl;
+        cout << "* e) Listar todas as pessoas das filas;      *" << endl;
         cout << "* n) Encerrar programa.                      *" << endl;
         cout << "* z) Mostra tudo.                            *" << endl;
         cout << "*                                            *" << endl;
@@ -46,6 +47,8 @@ int main(void)
         cout << "Escolha uma opcao: ";
         cin >> menu;
         fflush(stdin);
+
+        menu = tolower(menu);
 
         switch(menu) {
 
@@ -338,6 +341,35 @@ int main(void)
                 } else
                     cout << "\nAmbas as filas estao vazias." << endl << endl;
 
+                break;
+
+            case 'e':
+                system("cls");
+
+                cout << "Fila de PESSOA PRIORITARIA: ";
+                mostraFPessoa(&fDoaPrioritaria);
+
+                cout << "Fila de PESSOA NAO PRIORITARIA: ";
+                mostraFPessoa(&fDoaNaoPrioritaria);
+                
+                break;
+
+            case 'f':
+                system("cls");
+
+                cout << "Fila de TRANSPORTADORA PRIORITARIA: ";
+                mostraFTransportadora(&fRetiraPrioritaria);
+
+                cout << "Fila de TRANSPORTADORA NAO PRIORITARIA: ";
+                mostraFTransportadora(&fRetiraNaoPrioritaria);
+                
+                break;
+
+            case 'g':
+                system("cls");
+
+                
+                
                 break;
 
             case 'z':

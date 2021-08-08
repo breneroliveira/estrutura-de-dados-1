@@ -96,8 +96,6 @@ bool espiaFPessoa(FilaPessoa* f, DadoNoFilaPessoa *dado)
 /// Show
 void mostraFPessoa(FilaPessoa *f)
 {
-    cout << "Fila: ";
-
     if(f->inicio) /// Verifica se a fila nao esta vazia, ou seja, (f->inicio != NULL)
     {
         cout << "[";

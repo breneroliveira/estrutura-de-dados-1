@@ -96,8 +96,6 @@ bool espiaFTransportadora(FilaTransportadora* f, DadoNoFilaTransportadora *dado)
 /// Show
 void mostraFTransportadora(FilaTransportadora *f)
 {
-    cout << "Fila: ";
-
     if(f->inicio) /// Verifica se a fila nao esta vazia, ou seja, (f->inicio != NULL)
     {
         cout << "[";
