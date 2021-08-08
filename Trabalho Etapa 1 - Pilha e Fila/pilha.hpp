@@ -18,11 +18,11 @@ struct No
 
 struct Pilha
 {
-    No *topo, *topo2;
+    No *topo/*, *topo2*/;
 
     Pilha() { /// Construtor. Usado para inicializar os dados das variaveis da struct
         topo = nullptr;
-        topo2 = nullptr;
+        //topo2 = nullptr;
     }
 };
 
@@ -153,5 +153,31 @@ void desalocar(Pilha *p)
     while(!vaziaP(p))
         desempilhar(p, &dado);
 }*/
+
+/*int tamanhoPilha(Pilha *p) {
+    ListElem *i;
+    int total = 0;
+    i = p->topo; //point to the first item then move it to the next
+
+    while(i!=NULL){
+       t=t+1; //increment
+       i=i->next;
+     }
+
+    return t; //return the number of item counted
+}*/
+
+int tamanhoPilha(Pilha *p) {
+    int contElementos = 0;
+
+    No *no = p->topo;
+
+    while(no != NULL) {
+        contElementos++;
+        no = no->prox;
+    }
+    
+    return contElementos;
+}
 
 #endif /// _HPP_PILHA

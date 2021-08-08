@@ -153,7 +153,7 @@ void destroiFTransportadora(FilaTransportadora *f)
 /// Mostra o primeiro elemento da fila
 void primeiraTransportadoraF(FilaTransportadora *f)
 {
-    cout << f->inicio->dado.nomeTransportadora << endl << endl;
+    cout << f->inicio->dado.nomeTransportadora << endl;
 }
 
 #endif /// _HPP_FILA2_DINAMICA
