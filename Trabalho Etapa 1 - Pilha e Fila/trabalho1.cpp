@@ -32,17 +32,19 @@ int main(void)
     char menu;
 
     do {
-        cout << "******************* MENU *********************" << endl;
-        cout << "*                                            *" << endl;
-        cout << "* a) Incluir pessoa na fila de doacao;       *" << endl;
-        cout << "* b) Incluir empresa na fila de retirada;    *" << endl;
-        cout << "* c) Atender uma pessoa da fila;             *" << endl;
-        cout << "* d) Atender uma empresa da fila;            *" << endl;
-        cout << "* e) Listar todas as pessoas das filas;      *" << endl;
-        cout << "* n) Encerrar programa.                      *" << endl;
-        cout << "* z) Mostra tudo.                            *" << endl;
-        cout << "*                                            *" << endl;
-        cout << "**********************************************" << endl << endl;
+        cout << "*********************************** MENU ***********************************" << endl;
+        cout << "*                                                                          *" << endl;
+        cout << "* a) Incluir pessoa na fila de doacao;                                     *" << endl;
+        cout << "* b) Incluir empresa na fila de retirada;                                  *" << endl;
+        cout << "* c) Atender uma pessoa da fila;                                           *" << endl;
+        cout << "* d) Atender uma empresa da fila;                                          *" << endl;
+        cout << "* e) Listar todas as pessoas das filas;                                    *" << endl;
+        cout << "* f) Listar todas as empresas das filas;                                   *" << endl;
+        cout << "* g) Listar informações sobre as filas de pessoas de forma unificada;      *" << endl;
+        cout << "* n) Encerrar programa.                                                    *" << endl;
+        cout << "* z) Mostra tudo.                                                          *" << endl;
+        cout << "*                                                                          *" << endl;
+        cout << "****************************************************************************" << endl << endl;
 
         cout << "Escolha uma opcao: ";
         cin >> menu;
