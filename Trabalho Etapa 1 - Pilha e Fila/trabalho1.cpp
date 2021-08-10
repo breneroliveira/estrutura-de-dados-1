@@ -24,27 +24,42 @@ int main(void)
     ofstream escreveDoa("doacao.txt", ios::out);
     ofstream escreveRetira("retiradas.txt", ios::out);
 
-    int qtdObjetosRetirados = 0, contRetirada = 0, auxQtdElementos = 0;
+    char auxPcd, auxGestante;
+    char elementoArquivo;
 
-    stringstream sso;
-    string teste;
+    int qtdObjetosRetirados = 0, contRetirada = 0, auxQtdElementos = 0;
+    int totalPessoas = 0, sexoFeminino = 0, sexoMasculino = 0, pessoaPcd = 0, mulherGravida = 0;
+    int totalEmpresas = 0, entregaLivro = 0, entregaEquipamento = 0;
+
+    int contPrioridade = 0, totalDoadores = 0;
+
+    float somaIdade = 0;
+    float idadeMedia = 0;
+
+    //stringstream sso;
+    //string teste;
+
+    ifstream leitura;
 
     char menu;
 
     do {
-        cout << "*********************************** MENU ***********************************" << endl;
-        cout << "*                                                                          *" << endl;
-        cout << "* a) Incluir pessoa na fila de doacao;                                     *" << endl;
-        cout << "* b) Incluir empresa na fila de retirada;                                  *" << endl;
-        cout << "* c) Atender uma pessoa da fila;                                           *" << endl;
-        cout << "* d) Atender uma empresa da fila;                                          *" << endl;
-        cout << "* e) Listar todas as pessoas das filas;                                    *" << endl;
-        cout << "* f) Listar todas as empresas das filas;                                   *" << endl;
-        cout << "* g) Listar informações sobre as filas de pessoas de forma unificada;      *" << endl;
-        cout << "* n) Encerrar programa.                                                    *" << endl;
-        cout << "* z) Mostra tudo.                                                          *" << endl;
-        cout << "*                                                                          *" << endl;
-        cout << "****************************************************************************" << endl << endl;
+        cout << "**************************************************** MENU ****************************************************" << endl;
+        cout << "*                                                                                                            *" << endl;
+        cout << "* a) Incluir pessoa na fila de doacao;                                                                       *" << endl;
+        cout << "* b) Incluir empresa na fila de retirada;                                                                    *" << endl;
+        cout << "* c) Atender uma pessoa da fila;                                                                             *" << endl;
+        cout << "* d) Atender uma empresa da fila;                                                                            *" << endl;
+        cout << "* e) Listar todas as pessoas das filas;                                                                      *" << endl;
+        cout << "* f) Listar todas as empresas das filas;                                                                     *" << endl;
+        cout << "* g) Listar informacoes sobre as filas de pessoas de forma unificada;                                        *" << endl;
+        cout << "* h) Listar informacoes sobre as filas de empresas de forma unificada;                                       *" << endl;
+        cout << "* i) Listar o estoque de equipamentos na ordem em que eles foram doados;                                     *" << endl;
+        cout << "* k) Listar as doacoes recebidas pela ONG, o numero de doadores prioritarios e a idade media dos doadores;   *" << endl;
+        cout << "* n) Encerrar programa.                                                                                      *" << endl;
+        cout << "* z) Mostra tudo.                                                                                            *" << endl;
+        cout << "*                                                                                                            *" << endl;
+        cout << "**************************************************************************************************************" << endl << endl;
 
         cout << "Escolha uma opcao: ";
         cin >> menu;
@@ -97,31 +112,70 @@ int main(void)
                 }
                 
                 cout << "Pessoa com deficiencia (1 = sim/0 = nao): ";
-                cin >> pessoa.pcd;
+                cin >> auxPcd;
                 fflush(stdin);
 
-                while(pessoa.pcd != 1 && pessoa.pcd != 0) {
-                    cout << "Informe se é PcD novamente (1 = sim/0 = nao): ";
-                    cin >> pessoa.pcd;
+                while(auxPcd != '1' && auxPcd != '0') {
+                    cout << "Informe se e PcD novamente (1 = sim/0 = nao): ";
+                    cin >> auxPcd;
                     fflush(stdin);
                 }
+
+                if(auxPcd == '1')
+                    pessoa.pcd = true;
+                else if(auxPcd == '0')
+                    pessoa.pcd = false;
                 
                 cout << "Gestante (1 = sim/0 = nao): ";
-                cin >> pessoa.gestante;
+                cin >> auxGestante;
                 fflush(stdin);
 
-                while(pessoa.gestante != 1 && pessoa.gestante != 0) {
-                    cout << "Informe se é gestante novamente (1 = sim/0 = nao): ";
-                    cin >> pessoa.gestante;
+                while(auxGestante != '1' && auxGestante != '0') {
+                    cout << "Informe se e gestante novamente (1 = sim/0 = nao): ";
+                    cin >> auxGestante;
                     fflush(stdin);
                 }
 
-                if(pessoa.gestante == true || pessoa.pcd == true || pessoa.idade > 65) {
-                    if(enfileiraFPessoa(&fDoaPrioritaria, pessoa))
-                        cout << "\nPessoa de nome " << pessoa.nomePessoa << " inserida na fila de doacao prioritaria." << endl << endl;
+                if(pessoa.sexo == 'M') {
+                    sexoMasculino++;
+                    pessoa.gestante = false;
+                    cout << "\nApenas pessoas do sexo feminino podem constar como gestantes no sistema." << endl;
                 } else {
-                    if(enfileiraFPessoa(&fDoaNaoPrioritaria, pessoa))
+                    sexoFeminino++;
+                    if(auxGestante == '1')
+                        pessoa.gestante = true;
+                    else if(auxGestante == '0')
+                        pessoa.gestante = false;
+                }
+
+                /*while(pessoa.sexo != 'F' && auxGestante == '1') {
+                    cout << "\nApenas pessoas do sexo feminino podem constar como gestantes no sistema." << endl;
+                    cout << "Informe se e gestante novamente (1 = sim/0 = nao): ";
+                    cin >> auxGestante;
+                    fflush(stdin);
+                }
+
+                if(auxGestante == '1')
+                    pessoa.gestante = true;
+                else if(auxGestante == '0')
+                    pessoa.gestante = false;*/
+
+                if(pessoa.gestante == true || pessoa.pcd == true || pessoa.idade > 65) {
+                    if(enfileiraFPessoa(&fDoaPrioritaria, pessoa)) {
+                        cout << "\nPessoa de nome " << pessoa.nomePessoa << " inserida na fila de doacao prioritaria." << endl << endl;
+                        totalPessoas++;
+
+                        if(pessoa.pcd == true)
+                            pessoaPcd++;
+
+                        if(pessoa.gestante == true)
+                            mulherGravida++;
+                    }
+                } else {
+                    if(enfileiraFPessoa(&fDoaNaoPrioritaria, pessoa)) {
                         cout << "\nPessoa de nome " << pessoa.nomePessoa << " inserida na fila de doacao nao prioritaria." << endl << endl;
+                        totalPessoas++;
+                    }
                 }
 
                 break;
@@ -159,11 +213,17 @@ int main(void)
                 }
 
                 if(transportadora.tipo == 'L') {
-                    if(enfileiraFTransportadora(&fRetiraPrioritaria, transportadora))
+                    if(enfileiraFTransportadora(&fRetiraPrioritaria, transportadora)) {
                         cout << "\nTransportadora de nome " << transportadora.nomeTransportadora << " inserida na fila de retirada prioritaria." << endl << endl;
+                        totalEmpresas++;
+                        entregaLivro++;
+                    }
                 } else if(transportadora.tipo == 'E') {
-                    if(enfileiraFTransportadora(&fRetiraNaoPrioritaria, transportadora))
+                    if(enfileiraFTransportadora(&fRetiraNaoPrioritaria, transportadora)) {
                         cout << "\nTransportadora de nome " << transportadora.nomeTransportadora << " inserida na fila de retirada nao prioritaria." << endl << endl;
+                        totalEmpresas++;
+                        entregaEquipamento++;
+                    }
                 }
 
                 break;
@@ -195,6 +255,25 @@ int main(void)
                     fflush(stdin);
 
                     desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
+
+                    contPrioridade++;
+
+                    totalDoadores++;
+
+                    somaIdade = somaIdade + pessoa.idade;
+
+                    totalPessoas--;
+
+                    if(pessoa.sexo == 'F')
+                        sexoFeminino--;
+                    else
+                        sexoMasculino--;
+
+                    if(pessoa.pcd == true)
+                        pessoaPcd--;
+
+                    if(pessoa.gestante == true)
+                        mulherGravida--;
 
                     ofstream escreve("doacao.txt", ios::app);
 
@@ -239,6 +318,17 @@ int main(void)
 
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
 
+                    totalDoadores++;
+
+                    somaIdade = somaIdade + pessoa.idade;
+
+                    totalPessoas--;
+
+                    if(pessoa.sexo == 'F')
+                        sexoFeminino--;
+                    else
+                        sexoMasculino--;
+
                     ofstream escreve("doacao.txt", ios::app);
 
                     if(escreve.is_open()) {
@@ -272,6 +362,8 @@ int main(void)
                         cout << "\nNao ha livros para serem retirados." << endl;
                         desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
                         cout << "\nA transportadora de nome " << transportadora.nomeTransportadora << " foi despachada (retirada da fila prioritaria)." << endl << endl;
+                        totalEmpresas--;
+                        entregaLivro--;
                         break;
                     }
 
@@ -286,6 +378,8 @@ int main(void)
                     contRetirada = 0;
 
                     desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora); /// Transp. de livro
+                    totalEmpresas--;
+                    entregaLivro--;
 
                     while(contRetirada < qtdObjetosRetirados) {
                         desempilhar(&pLivro, &pessoa, &objeto); /// Pilha de livro
@@ -310,6 +404,8 @@ int main(void)
                         cout << "\nNao ha equipamentos para serem retirados." << endl;
                         desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
                         cout << "\nA transportadora de nome " << transportadora.nomeTransportadora << " foi despachada (retirada da fila nao prioritaria)." << endl << endl;
+                        totalEmpresas--;
+                        entregaEquipamento--;
                         break;
                     }
 
@@ -324,6 +420,8 @@ int main(void)
                     contRetirada = 0;
 
                     desenfileiraFTransportadora(&fRetiraNaoPrioritaria, &transportadora);
+                    totalEmpresas--;
+                    entregaEquipamento--;
 
                     while(contRetirada < qtdObjetosRetirados) {
                         desempilhar(&pEquipamento, &pessoa, &objeto);
@@ -370,7 +468,60 @@ int main(void)
             case 'g':
                 system("cls");
 
+                cout << "********** Contagem das pessoas de forma unificada **********" << endl;
+                cout << "Total de pessoas: " << totalPessoas << endl;
+                cout << "Pessoas do sexo feminino: " << sexoFeminino << endl;
+                cout << "Pessoas do sexo masculino: " << sexoMasculino << endl;
+                cout << "Pessoas com deficiencia: " << pessoaPcd << endl;
+                cout << "Mulheres gravidas: " << mulherGravida << endl << endl;
                 
+                break;
+
+            case 'h':
+                system("cls");
+
+                cout << "********** Contagem das empresas de forma unificada **********" << endl;
+                cout << "Total de empresas: " << totalEmpresas << endl;
+                cout << "Empresas especializadas na entrega de livros: " << entregaLivro << endl;
+                cout << "Empresas especializadas na entrega de equipamentos: " << entregaEquipamento << endl << endl;
+                
+                break;
+
+            case 'i':
+                system("cls");
+
+                
+                
+                break;
+
+            case 'k':
+                system("cls");
+
+                leitura.open("doacao.txt", ios::in);
+
+                if(leitura.is_open()) {
+                    cout << "Arquivo aberto." << endl;
+
+                    //soma = 0;
+
+                    while(leitura.get(elementoArquivo)) {
+                        cout << elementoArquivo;
+                        /*leitura >> aux;
+                        cout << aux << " ";
+                        soma+=aux;*/
+                    }
+                } else
+                    cout << "Erro ao abrir o arquivo." << endl;
+
+                leitura.close();
+
+                cout << "\n\nPessoas prioritarias que realizaram doacoes: " << contPrioridade << endl;
+                idadeMedia = somaIdade / totalDoadores;
+
+                if(somaIdade == 0 && totalDoadores == 0)
+                    idadeMedia = 0;
+
+                cout << "Idade media dos doadores: " << idadeMedia << endl << endl;
                 
                 break;
 
