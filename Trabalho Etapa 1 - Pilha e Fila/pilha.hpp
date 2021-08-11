@@ -93,6 +93,7 @@ bool espiarP(Pilha* p, int *dado)
 
 void mostrar(Pilha *p)
 {
+    cout << endl;
     if(!vaziaP(p))
     {
         cout << "------------------------------------------------------------------------------------------------------------------" << endl;
@@ -125,7 +126,7 @@ void mostrar(Pilha *p)
         }
         cout << endl;
     } else
-        cout << "A pilha esta vazia" << endl << endl;
+        cout << "A pilha esta vazia." << endl << endl;
 }
 
 /*/// Retorna true se o valor existe na pilha
@@ -162,6 +163,50 @@ int tamanhoPilha(Pilha *p) {
     }
     
     return contElementos;
+}
+
+void mostraPEquipamentos(Pilha *p)
+{
+    DadosPessoa auxPessoa;
+    DadosObjeto auxObjeto;
+
+    Pilha auxPilhaEquipamento;
+
+    cout << "Equipamentos na ordem em que foram doados: " << endl;
+
+    while(!vaziaP(p)) {
+        desempilhar(p, &auxPessoa, &auxObjeto);
+        empilhar(&auxPilhaEquipamento, auxPessoa, auxObjeto);
+    }
+
+    mostrar(&auxPilhaEquipamento);
+
+    while(!vaziaP(&auxPilhaEquipamento)) {
+        desempilhar(&auxPilhaEquipamento, &auxPessoa, &auxObjeto);
+        empilhar(p, auxPessoa, auxObjeto);
+    }
+}
+
+void mostraPLivro(Pilha *p)
+{
+    DadosPessoa auxPessoa;
+    DadosObjeto auxObjeto;
+
+    Pilha auxPilhaLivro;
+
+    cout << "Livros na ordem em que foram doados: " << endl;
+
+    while(!vaziaP(p)) {
+        desempilhar(p, &auxPessoa, &auxObjeto);
+        empilhar(&auxPilhaLivro, auxPessoa, auxObjeto);
+    }
+
+    mostrar(&auxPilhaLivro);
+
+    while(!vaziaP(&auxPilhaLivro)) {
+        desempilhar(&auxPilhaLivro, &auxPessoa, &auxObjeto);
+        empilhar(p, auxPessoa, auxObjeto);
+    }
 }
 
 #endif /// _HPP_PILHA

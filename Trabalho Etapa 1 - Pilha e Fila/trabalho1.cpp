@@ -55,6 +55,7 @@ int main(void)
         cout << "* g) Listar informacoes sobre as filas de pessoas de forma unificada;                                        *" << endl;
         cout << "* h) Listar informacoes sobre as filas de empresas de forma unificada;                                       *" << endl;
         cout << "* i) Listar o estoque de equipamentos na ordem em que eles foram doados;                                     *" << endl;
+        cout << "* j) Listar o estoque de livros na ordem em que eles foram doados;                                           *" << endl;
         cout << "* k) Listar as doacoes recebidas pela ONG, o numero de doadores prioritarios e a idade media dos doadores;   *" << endl;
         cout << "* n) Encerrar programa.                                                                                      *" << endl;
         cout << "* z) Mostra tudo.                                                                                            *" << endl;
@@ -147,18 +148,6 @@ int main(void)
                     else if(auxGestante == '0')
                         pessoa.gestante = false;
                 }
-
-                /*while(pessoa.sexo != 'F' && auxGestante == '1') {
-                    cout << "\nApenas pessoas do sexo feminino podem constar como gestantes no sistema." << endl;
-                    cout << "Informe se e gestante novamente (1 = sim/0 = nao): ";
-                    cin >> auxGestante;
-                    fflush(stdin);
-                }
-
-                if(auxGestante == '1')
-                    pessoa.gestante = true;
-                else if(auxGestante == '0')
-                    pessoa.gestante = false;*/
 
                 if(pessoa.gestante == true || pessoa.pcd == true || pessoa.idade > 65) {
                     if(enfileiraFPessoa(&fDoaPrioritaria, pessoa)) {
@@ -377,12 +366,12 @@ int main(void)
 
                     contRetirada = 0;
 
-                    desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora); /// Transp. de livro
+                    desenfileiraFTransportadora(&fRetiraPrioritaria, &transportadora);
                     totalEmpresas--;
                     entregaLivro--;
 
                     while(contRetirada < qtdObjetosRetirados) {
-                        desempilhar(&pLivro, &pessoa, &objeto); /// Pilha de livro
+                        desempilhar(&pLivro, &pessoa, &objeto);
 
                         ofstream escreve("retiradas.txt", ios::app);
 
@@ -490,7 +479,14 @@ int main(void)
             case 'i':
                 system("cls");
 
+                mostraPEquipamentos(&pEquipamento);
                 
+                break;
+
+            case 'j':
+                system("cls");
+
+                mostraPLivro(&pLivro);
                 
                 break;
 
@@ -502,14 +498,8 @@ int main(void)
                 if(leitura.is_open()) {
                     cout << "Arquivo aberto." << endl;
 
-                    //soma = 0;
-
-                    while(leitura.get(elementoArquivo)) {
+                    while(leitura.get(elementoArquivo))
                         cout << elementoArquivo;
-                        /*leitura >> aux;
-                        cout << aux << " ";
-                        soma+=aux;*/
-                    }
                 } else
                     cout << "Erro ao abrir o arquivo." << endl;
 
