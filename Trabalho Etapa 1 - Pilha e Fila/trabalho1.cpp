@@ -57,6 +57,7 @@ int main(void)
         cout << "* i) Listar o estoque de equipamentos na ordem em que eles foram doados;                                     *" << endl;
         cout << "* j) Listar o estoque de livros na ordem em que eles foram doados;                                           *" << endl;
         cout << "* k) Listar as doacoes recebidas pela ONG, o numero de doadores prioritarios e a idade media dos doadores;   *" << endl;
+        cout << "* m) Listar todas as retiradas realizadas;                                                                   *" << endl;
         cout << "* n) Encerrar programa.                                                                                      *" << endl;
         cout << "* z) Mostra tudo.                                                                                            *" << endl;
         cout << "*                                                                                                            *" << endl;
@@ -512,6 +513,25 @@ int main(void)
                     idadeMedia = 0;
 
                 cout << "Idade media dos doadores: " << idadeMedia << endl << endl;
+                
+                break;
+
+            case 'm':
+                system("cls");
+
+                leitura.open("retiradas.txt", ios::in);
+
+                if(leitura.is_open()) {
+                    cout << "Arquivo aberto." << endl;
+
+                    while(leitura.get(elementoArquivo))
+                        cout << elementoArquivo;
+                } else
+                    cout << "Erro ao abrir o arquivo." << endl;
+
+                leitura.close();
+
+                cout << endl << endl;
                 
                 break;
 
