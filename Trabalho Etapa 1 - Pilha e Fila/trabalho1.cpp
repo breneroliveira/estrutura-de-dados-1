@@ -57,6 +57,7 @@ int main(void)
         cout << "* i) Listar o estoque de equipamentos na ordem em que eles foram doados;                                     *" << endl;
         cout << "* j) Listar o estoque de livros na ordem em que eles foram doados;                                           *" << endl;
         cout << "* k) Listar as doacoes recebidas pela ONG, o numero de doadores prioritarios e a idade media dos doadores;   *" << endl;
+        cout << "* l) Verificar o numero de doacoes realizadas por um determinado CPF;                                        *" << endl;
         cout << "* m) Listar todas as retiradas realizadas;                                                                   *" << endl;
         cout << "* n) Encerrar programa.                                                                                      *" << endl;
         cout << "* z) Mostra tudo.                                                                                            *" << endl;
@@ -244,6 +245,12 @@ int main(void)
                     getline(cin, objeto.descricao);
                     fflush(stdin);
 
+                    while(objeto.descricao.empty()) {
+                        cout << "E necessario inserir uma descricao: ";
+                        getline(cin, objeto.descricao);
+                        fflush(stdin);
+                    }
+
                     desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
 
                     contPrioridade++;
@@ -305,6 +312,12 @@ int main(void)
                     cout << "Descricao: ";
                     getline(cin, objeto.descricao);
                     fflush(stdin);
+
+                    while(objeto.descricao.empty()) {
+                        cout << "E necessario inserir uma descricao: ";
+                        getline(cin, objeto.descricao);
+                        fflush(stdin);
+                    }
 
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
 
@@ -513,6 +526,13 @@ int main(void)
                     idadeMedia = 0;
 
                 cout << "Idade media dos doadores: " << idadeMedia << endl << endl;
+                
+                break;
+
+            case 'l':
+                system("cls");
+
+                
                 
                 break;
 
