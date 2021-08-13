@@ -36,6 +36,8 @@ int main(void)
     float somaIdade = 0;
     float idadeMedia = 0;
 
+    string procuraCPF;
+
     //stringstream sso;
     //string teste;
 
@@ -532,7 +534,18 @@ int main(void)
             case 'l':
                 system("cls");
 
-                
+                cout << "********** Buscar CPF **********" << endl;
+                cout << "Insira o CPF desejado: ";
+                getline(cin, procuraCPF);
+                fflush(stdin);
+
+                while(procuraCPF.size() != 11) {
+                    cout << "Insira o CPF novamente (o CPF contem 11 digitos): ";
+                    getline(cin, procuraCPF);
+                    fflush(stdin);
+                }
+
+                cout << "\nQuantidade de doacoes realizadas: " << buscaCPF(&pLivro, &pEquipamento, pessoa, procuraCPF) << endl << endl;
                 
                 break;
 

@@ -209,4 +209,31 @@ void mostraPLivro(Pilha *p)
     }
 }
 
+int buscaCPF(Pilha *pL, Pilha *pE, DadosPessoa pessoa, string cpfBuscado)
+{
+    No *no = pL->topo;
+    
+    int contCPF = 0;
+
+    while (no != NULL)
+    {
+        if(no->pessoa.cpf == cpfBuscado)
+            contCPF++;
+
+        no = no->prox;
+    }
+
+    No *no2 = pE->topo;
+
+    while (no2 != NULL)
+    {
+        if(no2->pessoa.cpf == cpfBuscado)
+            contCPF++;
+
+        no2 = no2->prox;
+    }
+
+    return contCPF;
+}
+
 #endif /// _HPP_PILHA
