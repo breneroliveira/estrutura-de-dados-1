@@ -116,22 +116,6 @@ void mostraFTransportadora(FilaTransportadora *f)
         cout << "Fila vazia.\n\n";
 }
 
-/// Retorna true se o valor existe na fila
-/// Retorna false se o valor nao existe na fila
-/*bool buscaFPessoa(FilaPessoa *f, DadoNoFilaPessoa valor)
-{
-    NoFilaPessoa *no = f->inicio;
-    while (no) /// Faca enquanto (no != NULL)
-    {
-        if(no->dado == valor)
-            return true;
-
-        no = no->prox;
-    }
-
-    return false;
-}*/
-
 void destroiFTransportadora(FilaTransportadora *f)
 {
     NoFilaTransportadora *no = f->inicio;

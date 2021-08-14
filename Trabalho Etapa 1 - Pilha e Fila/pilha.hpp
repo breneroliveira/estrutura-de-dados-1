@@ -79,18 +79,6 @@ bool desempilhar(Pilha *p, DadosPessoa *pessoa, DadosObjeto *objeto)
         return false;
 }
 
-/*/// Peek
-bool espiarP(Pilha* p, int *dado)
-{
-    if (p->topo)
-    {
-        *dado = p->topo->dado;
-        return true;
-    }
-    else
-        return false;
-}*/
-
 void mostrar(Pilha *p)
 {
     cout << endl;
@@ -128,29 +116,6 @@ void mostrar(Pilha *p)
     } else
         cout << "A pilha esta vazia." << endl << endl;
 }
-
-/*/// Retorna true se o valor existe na pilha
-/// Retorna false se o valor nao existe na pilha
-bool buscar(Pilha *p, int dado)
-{
-    No *no = p->topo;
-    while (no != NULL)
-    {
-        if(no->dado == dado)
-            return true;
-
-        no = no->prox;
-    }
-
-    return false;
-}
-
-void desalocar(Pilha *p)
-{
-    int dado;
-    while(!vaziaP(p))
-        desempilhar(p, &dado);
-}*/
 
 int tamanhoPilha(Pilha *p) {
     int contElementos = 0;

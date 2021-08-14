@@ -284,9 +284,6 @@ int main(void)
                     } else
                         cout << "Erro ao abrir o arquivo." << endl;
 
-                    //sso << pessoa.idade;
-                    //sso >> teste;
-
                     if(objeto.tipo == 'L')
                         empilhar(&pLivro, pessoa, objeto);
                     else if(objeto.tipo == 'E')
@@ -611,8 +608,6 @@ int main(void)
         system("cls");
 
     } while(menu != 'n');
-
-    
 
     return EXIT_SUCCESS;
 }
