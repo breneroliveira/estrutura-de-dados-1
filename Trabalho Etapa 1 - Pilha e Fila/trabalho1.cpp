@@ -59,7 +59,6 @@ int main(void)
         cout << "* l) Verificar o numero de doacoes realizadas por um determinado CPF;                                        *" << endl;
         cout << "* m) Listar todas as retiradas realizadas;                                                                   *" << endl;
         cout << "* n) Encerrar programa.                                                                                      *" << endl;
-        cout << "* z) Mostra tudo.                                                                                            *" << endl;
         cout << "*                                                                                                            *" << endl;
         cout << "**************************************************************************************************************" << endl << endl;
 
@@ -564,29 +563,6 @@ int main(void)
 
                 cout << endl << endl;
                 
-                break;
-
-            case 'z':
-                system("cls");
-
-                cout << "Fila de PESSOA PRIORITARIA: ";
-                mostraFPessoa(&fDoaPrioritaria);
-
-                cout << "Fila de PESSOA NAO PRIORITARIA: ";
-                mostraFPessoa(&fDoaNaoPrioritaria);
-
-                cout << "Fila de TRANSPORTADORA PRIORITARIA: ";
-                mostraFTransportadora(&fRetiraPrioritaria);
-
-                cout << "Fila de TRANSPORTADORA NAO PRIORITARIA: ";
-                mostraFTransportadora(&fRetiraNaoPrioritaria);
-
-                cout << "Pilha de doacao de LIVROS: ";
-                mostrar(&pLivro);
-
-                cout << "Pilha de doacao de EQUIPAMENTOS: ";
-                mostrar(&pEquipamento);
-
                 break;
 
             case 'n':
