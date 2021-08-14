@@ -209,11 +209,22 @@ void mostraPLivro(Pilha *p)
     }
 }
 
-int buscaCPF(Pilha *pL, Pilha *pE, DadosPessoa pessoa, string cpfBuscado)
+bool pilhaCPF(Pilha *p, DadosPessoa pessoa) {
+    No *novo =  new No(); /// Cria um novo no
+    if (!novo) /// Sistema não conseguiu alocar a memoria
+        return false;
+
+    novo->pessoa.cpf = pessoa.cpf;
+
+    novo->prox = p->topo; /// O proximo elemento do no criado sera o ultimo elemento da pilha
+    p->topo = novo; /// Atualiza o topo da pilha para o no criado
+    return true;
+}
+
+int busca(Pilha *p, DadosPessoa pessoa, string cpfBuscado)
 {
-    No *no = pL->topo;
-    
     int contCPF = 0;
+    No *no = p->topo;
 
     while (no != NULL)
     {
@@ -221,16 +232,6 @@ int buscaCPF(Pilha *pL, Pilha *pE, DadosPessoa pessoa, string cpfBuscado)
             contCPF++;
 
         no = no->prox;
-    }
-
-    No *no2 = pE->topo;
-
-    while (no2 != NULL)
-    {
-        if(no2->pessoa.cpf == cpfBuscado)
-            contCPF++;
-
-        no2 = no2->prox;
     }
 
     return contCPF;

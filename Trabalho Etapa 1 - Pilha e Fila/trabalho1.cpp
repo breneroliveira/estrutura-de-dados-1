@@ -13,16 +13,16 @@ int main(void)
 {
     setlocale(LC_ALL, "Portuguese");
 
+    ofstream escreveDoa("doacao.txt", ios::out);
+    ofstream escreveRetira("retiradas.txt", ios::out);
+
+    Pilha pLivro, pEquipamento, pApenasCPF;
     FilaPessoa fDoaPrioritaria, fDoaNaoPrioritaria;
     FilaTransportadora fRetiraPrioritaria, fRetiraNaoPrioritaria;
-    Pilha pLivro, pEquipamento;
 
     DadosObjeto objeto;
     DadosPessoa pessoa;
     DadosTransportadora transportadora;
-
-    ofstream escreveDoa("doacao.txt", ios::out);
-    ofstream escreveRetira("retiradas.txt", ios::out);
 
     char auxPcd, auxGestante;
     char elementoArquivo;
@@ -37,9 +37,6 @@ int main(void)
     float idadeMedia = 0;
 
     string procuraCPF;
-
-    //stringstream sso;
-    //string teste;
 
     ifstream leitura;
 
@@ -144,7 +141,6 @@ int main(void)
                 if(pessoa.sexo == 'M') {
                     sexoMasculino++;
                     pessoa.gestante = false;
-                    cout << "\nApenas pessoas do sexo feminino podem constar como gestantes no sistema." << endl;
                 } else {
                     sexoFeminino++;
                     if(auxGestante == '1')
@@ -152,6 +148,9 @@ int main(void)
                     else if(auxGestante == '0')
                         pessoa.gestante = false;
                 }
+
+                if(pessoa.sexo == 'M' && auxGestante == '1')
+                    cout << "\nApenas pessoas do sexo feminino podem constar como gestantes no sistema." << endl;
 
                 if(pessoa.gestante == true || pessoa.pcd == true || pessoa.idade > 65) {
                     if(enfileiraFPessoa(&fDoaPrioritaria, pessoa)) {
@@ -254,6 +253,7 @@ int main(void)
                     }
 
                     desenfileiraFPessoa(&fDoaPrioritaria, &pessoa);
+                    pilhaCPF(&pApenasCPF, pessoa);
 
                     contPrioridade++;
 
@@ -322,6 +322,7 @@ int main(void)
                     }
 
                     desenfileiraFPessoa(&fDoaNaoPrioritaria, &pessoa);
+                    pilhaCPF(&pApenasCPF, pessoa);
 
                     totalDoadores++;
 
@@ -451,10 +452,10 @@ int main(void)
             case 'e':
                 system("cls");
 
-                cout << "Fila de PESSOA PRIORITARIA: ";
+                cout << "Fila de pessoas prioritarias: ";
                 mostraFPessoa(&fDoaPrioritaria);
 
-                cout << "Fila de PESSOA NAO PRIORITARIA: ";
+                cout << "Fila de pessoas nao prioritarias: ";
                 mostraFPessoa(&fDoaNaoPrioritaria);
                 
                 break;
@@ -462,10 +463,10 @@ int main(void)
             case 'f':
                 system("cls");
 
-                cout << "Fila de TRANSPORTADORA PRIORITARIA: ";
+                cout << "Fila de transportadoras prioritarias: ";
                 mostraFTransportadora(&fRetiraPrioritaria);
 
-                cout << "Fila de TRANSPORTADORA NAO PRIORITARIA: ";
+                cout << "Fila de transportadoras nao prioritarias: ";
                 mostraFTransportadora(&fRetiraNaoPrioritaria);
                 
                 break;
@@ -545,7 +546,7 @@ int main(void)
                     fflush(stdin);
                 }
 
-                cout << "\nQuantidade de doacoes realizadas: " << buscaCPF(&pLivro, &pEquipamento, pessoa, procuraCPF) << endl << endl;
+                cout << "\nQuantidade de doacoes realizadas: " << busca(&pApenasCPF, pessoa, procuraCPF) << endl << endl;
                 
                 break;
 
@@ -610,6 +611,8 @@ int main(void)
         system("cls");
 
     } while(menu != 'n');
+
+    
 
     return EXIT_SUCCESS;
 }
