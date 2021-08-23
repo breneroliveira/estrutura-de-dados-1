@@ -21,7 +21,7 @@ int main(void) {
         cout << "* 2) Incluir elemento no inicio da lista encadeada;                  *" << endl;
         cout << "* 3) Incluir elemento na posicao informada;                          *" << endl;
         cout << "* 4) Remover elemento informado;                                     *" << endl;
-        cout << "* 5) Buscar elemento informado;                                     *" << endl;
+        cout << "* 5) Buscar elemento informado;                                      *" << endl;
         cout << "* 6) Mostrar lista;                                                  *" << endl;
         cout << "* 0) Encerrar programa.                                              *" << endl;
         cout << "*                                                                    *" << endl;

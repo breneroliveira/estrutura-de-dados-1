@@ -20,7 +20,7 @@ void inicializaL(No **lista)
 
 bool vaziaL(No **lista)
 {
-    if(!lista)
+    if(! (*lista))
         return true;
     else
         return false;

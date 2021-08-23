@@ -7,7 +7,7 @@ using namespace std;
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
-    No* lista;
+    No* lista, *lista2;
 
     int elemento, posicaoElemento;
 
@@ -17,12 +17,15 @@ int main(void) {
     do {
         cout << "******************************** MENU ********************************" << endl;
         cout << "*                                                                    *" << endl;
-        cout << "* 1) Inicializa a fila encadeada dinamica;                           *" << endl;
+        cout << "* 1) Inicializa as filas encadeadas dinamicas;                       *" << endl;
         cout << "* 2) Incluir elemento no inicio da lista encadeada;                  *" << endl;
         cout << "* 3) Incluir elemento na posicao informada;                          *" << endl;
         cout << "* 4) Remover elemento informado;                                     *" << endl;
-        cout << "* 5) Buscar elemento informado;                                     *" << endl;
-        cout << "* 6) Mostrar lista;                                                  *" << endl;
+        cout << "* 5) Buscar elemento informado;                                      *" << endl;
+        cout << "* 6) Mostrar listas;                                                 *" << endl;
+        cout << "* 7) Incluir elemento no inicio da lista 2;                          *" << endl;
+        cout << "* 8) Verifica se as listas sao iguais;                               *" << endl;
+        //cout << "* 10) Insere no final da lista;                                      *" << endl;
         cout << "* 0) Encerrar programa.                                              *" << endl;
         cout << "*                                                                    *" << endl;
         cout << "**********************************************************************" << endl << endl;
@@ -37,10 +40,14 @@ int main(void) {
 
                 if(vaziaL(&lista))
                     destroiL(&lista);
+                
+                if(vaziaL(&lista2))
+                    destroiL(&lista2);
 
                 inicializaL(&lista);
+                inicializaL(&lista2);
                 controle = true;
-                cout << "Lista inicializada" << endl << endl;
+                cout << "Listas inicializadas" << endl << endl;
 
                 break;
 
@@ -140,10 +147,86 @@ int main(void) {
 
                     cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
                 } else {
+                    cout << "Lista 1: ";
                     mostraL(&lista);
+
+                    cout << "Lista 2: ";
+                    mostraL(&lista2);
                 }
 
                 break;
+
+            case 7:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira um valor no inicio da fila 2: ";
+                    cin >> elemento;
+                    fflush(stdin);
+
+                    insereL(&lista2, elemento);
+                    cout << "\nValor " << elemento << " inserido na fila 2." << endl << endl;
+                }
+
+                break;
+
+            case 8:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    if(igual(&lista, &lista2))
+                        cout << "As listas sao iguais." << endl << endl;
+                    else
+                        cout << "As listas nao sao iguais." << endl << endl;
+                }
+
+                break;
+
+            /*case 9:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira um valor: ";
+                    cin >> elemento;
+                    fflush(stdin);
+
+                    insereOrdenado(&lista, elemento);
+                    
+                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
+                }
+
+                break;*/
+
+            /*case 10:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira um valor no final da fila: ";
+                    cin >> elemento;
+                    fflush(stdin);
+
+                    insereFinal(&lista, elemento);
+                    
+                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
+                }
+
+                break;*/
 
             case 0:
                 system("cls");

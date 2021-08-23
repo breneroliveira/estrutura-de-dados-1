@@ -20,7 +20,7 @@ void inicializaL(No **lista)
 
 bool vaziaL(No **lista)
 {
-    if(!lista)
+    if(! (*lista))
         return true;
     else
         return false;
@@ -42,7 +42,6 @@ void destroiL(No **lista)
 /// Insere no inicio da lista
 bool insereL(No **lista, DadoNoLista valor)
 {
-
     No *novo = new No(); /// Aloca memoria para o no
     if (!novo)
         return false;
@@ -144,5 +143,83 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
 
     return true;
 }
+
+bool igual(No **lista, No **lista2) {
+    No *n = *lista;
+    No *n2 = *lista2;
+    while(n && n2) {
+        if (n->dado == n2->dado)
+            return true;
+
+        n = n->prox;
+        n2 = n2->prox;
+    }
+    return false;
+}
+
+/*void insereOrdenado(No **lista, int valor) {
+    No *n = *lista;
+    No *novo = new No();
+
+    while(n && valor > n->dado) {
+        n = n->prox;
+
+        if(valor < n->dado) {
+            novo->dado = valor;
+            novo->prox = *lista;
+            *lista = novo;
+        }
+    }
+*/
+
+    /*No *novo = new No(); /// Aloca memoria para o no
+    if (!novo)
+        return false;
+
+    novo->dado = valor;
+    novo->prox = *lista;
+    *lista = novo;
+    
+
+
+}*/
+
+/*void insereFinal(No **lista, int valor) {
+    No *novo = new No();
+    if (!novo) /// Nao conseguiu alocar memoria (novo == NULL)
+        return false;
+
+    novo->dado = valor;
+    novo->prox = nullptr;
+    if (!(*lista->inicio)) /// Verifica se a fila esta vazia, ou seja, (f->inicio == NULL)
+        f->inicio = novo;
+    else
+        f->fim->prox = novo;
+
+    f->fim = novo;
+    return true;*/
+
+
+    /*No *n = *lista;
+    No *novo = new No(); /// Aloca memoria para o no*/
+    //if(!novo)
+        //return false;
+
+    /*novo->dado = valor;
+    novo->prox = *lista;
+    *lista = novo;*/
+
+    /*while(n) {
+        n = n->prox;
+
+        if(!n) {
+            novo->dado = valor;
+            novo->prox = *lista;
+            *lista = novo;
+        }
+    }*/
+
+    //return true;
+//}
 
 #endif // _HPP_LISTA_DINAMICA
