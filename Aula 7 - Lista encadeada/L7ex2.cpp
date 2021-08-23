@@ -25,7 +25,6 @@ int main(void) {
         cout << "* 6) Mostrar listas;                                                 *" << endl;
         cout << "* 7) Incluir elemento no inicio da lista 2;                          *" << endl;
         cout << "* 8) Verifica se as listas sao iguais;                               *" << endl;
-        //cout << "* 10) Insere no final da lista;                                      *" << endl;
         cout << "* 0) Encerrar programa.                                              *" << endl;
         cout << "*                                                                    *" << endl;
         cout << "**********************************************************************" << endl << endl;
