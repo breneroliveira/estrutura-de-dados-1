@@ -190,44 +190,6 @@ int main(void) {
 
                 break;
 
-            /*case 9:
-                system("cls");
-
-                if(controle == false) {
-                    system("cls");
-
-                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
-                } else {
-                    cout << "Insira um valor: ";
-                    cin >> elemento;
-                    fflush(stdin);
-
-                    insereOrdenado(&lista, elemento);
-                    
-                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
-                }
-
-                break;*/
-
-            /*case 10:
-                system("cls");
-
-                if(controle == false) {
-                    system("cls");
-
-                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
-                } else {
-                    cout << "Insira um valor no final da fila: ";
-                    cin >> elemento;
-                    fflush(stdin);
-
-                    insereFinal(&lista, elemento);
-                    
-                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
-                }
-
-                break;*/
-
             case 0:
                 system("cls");
 
