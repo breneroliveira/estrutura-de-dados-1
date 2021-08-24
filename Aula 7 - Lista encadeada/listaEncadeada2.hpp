@@ -73,7 +73,7 @@ void mostraL(No **lista)
 bool removeL(No **lista, DadoNoLista valor)
 {
     No *anterior = nullptr;
-    No *atual = *lista;
+    No *atual = *lista; /// Atualização do ponteiro
     /// Fica no laco enquanto tiver elementos na lista
     /// e nao encontrar o valor procurado
     while(atual && atual->dado != valor)
@@ -145,7 +145,7 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
 }
 
 bool igual(No **lista, No **lista2) {
-    No *n = *lista;
+    No *n = *lista; /// Primeiro elemento da lista
     No *n2 = *lista2;
     while(n && n2) {
         if (n->dado == n2->dado)
