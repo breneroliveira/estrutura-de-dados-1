@@ -42,6 +42,7 @@ void destroiL(No **lista)
 /// Insere no inicio da lista
 bool insereL(No **lista, DadoNoLista valor)
 {
+
     No *novo = new No(); /// Aloca memoria para o no
     if (!novo)
         return false;
@@ -73,7 +74,7 @@ void mostraL(No **lista)
 bool removeL(No **lista, DadoNoLista valor)
 {
     No *anterior = nullptr;
-    No *atual = *lista; /// Atualização do ponteiro
+    No *atual = *lista;
     /// Fica no laco enquanto tiver elementos na lista
     /// e nao encontrar o valor procurado
     while(atual && atual->dado != valor)
@@ -144,89 +145,24 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
     return true;
 }
 
-bool igual(No **lista, No **lista2) {
-    No *n = *lista; /// Primeiro elemento da lista
-    No *n2 = *lista2;
-    while(n && n2) {
-        if (n->dado == n2->dado)
-            return true;
-
-        n = n->prox;
-        n2 = n2->prox;
-    }
-    return false;
-}
-
 void insereOrdenadoL(No **lista, int valor) {
-
     No *anterior = NULL;
     No *atual = *lista;
-    while(atual && atual->dado < valor){
+    while(atual && atual->dado < valor) {
         anterior = atual;
         atual = atual->prox;
     }
 
     No *novo = new No();
     novo->dado = valor;
-    if(!anterior){
+    if(!anterior) {
         novo->prox = *lista;
         *lista = novo;
     }
-    else{
+    else {
         novo->prox = anterior->prox;
         anterior->prox = novo;
     }
-}
-
-void insereFinalL(No **lista, int valor) {
-    No *novo = new No();
-    novo->dado = valor;
-    novo->prox = NULL;
-
-    No *aux = *lista;
-
-    if(!aux)
-    {
-        *lista = novo;
-    }
-    else{
-        while(aux->prox){
-            aux = aux->prox;
-        }
-        aux->prox = novo;
-    }
-}
-
-int total(No **lista) {
-    int t=0;
-
-    No *n = *lista;
-    while (n)
-    {
-        t++;
-        n = n->prox;
-    }
-
-    return t;
-}
-
-bool lePosicao(No **lista, int posicao, DadoNoLista *valor) {
-    int cont = 0;
-
-    No *n = *lista;
-    while (n)
-    {
-        if(cont == posicao)
-        {
-            *valor = n->dado;
-            return true;
-        }
-
-        n = n->prox;
-        cont++;
-    }
-
-    return false;
 }
 
 bool removePosicaoL(No **lista, int pos) {
@@ -258,20 +194,27 @@ bool removePosicaoL(No **lista, int pos) {
     return true;
 }
 
-void uniao(No **lista1, No **lista2, No **listaSaida) {
-    destroiL(listaSaida);
+int total(No **lista) {
+    int t=0;
 
-    No *n = *lista1;
-    while(n) {
-        insereL(listaSaida, n->dado);
+    No *n = *lista;
+    while (n)
+    {
+        t++;
         n = n->prox;
     }
 
-    n = *lista2;
-    while(n) {
-        insereL(listaSaida, n->dado);
-        n = n->prox;
+    return t;
+}
+
+void ordemInversa(No **lista) {
+    No *listaInversa;
+
+    for(int i = 0; i < total(lista); i++) {
+        removePosicaoL(lista, i);
     }
+    12345
+    
 }
 
 #endif /// _HPP_LISTA_DINAMICA

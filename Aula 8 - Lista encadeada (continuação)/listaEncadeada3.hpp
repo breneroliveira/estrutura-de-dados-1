@@ -42,13 +42,14 @@ void destroiL(No **lista)
 /// Insere no inicio da lista
 bool insereL(No **lista, DadoNoLista valor)
 {
+
     No *novo = new No(); /// Aloca memoria para o no
     if (!novo)
         return false;
 
     novo->dado = valor;
-    novo->prox = *lista; /// INICIO DA LISTA
-    *lista = novo; /// PONTEIRO DO INICIO APONTA PARA O PROXIMO NO
+    novo->prox = *lista;
+    *lista = novo;
 
     return true;
 }
@@ -73,7 +74,7 @@ void mostraL(No **lista)
 bool removeL(No **lista, DadoNoLista valor)
 {
     No *anterior = nullptr;
-    No *atual = *lista; /// Atualização do ponteiro
+    No *atual = *lista;
     /// Fica no laco enquanto tiver elementos na lista
     /// e nao encontrar o valor procurado
     while(atual && atual->dado != valor)
@@ -144,134 +145,51 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
     return true;
 }
 
-bool igual(No **lista, No **lista2) {
-    No *n = *lista; /// Primeiro elemento da lista
-    No *n2 = *lista2;
-    while(n && n2) {
-        if (n->dado == n2->dado)
-            return true;
-
-        n = n->prox;
-        n2 = n2->prox;
-    }
-    return false;
-}
-
 void insereOrdenadoL(No **lista, int valor) {
-
     No *anterior = NULL;
     No *atual = *lista;
-    while(atual && atual->dado < valor){
+    while(atual && atual->dado < valor) {
         anterior = atual;
         atual = atual->prox;
     }
 
     No *novo = new No();
     novo->dado = valor;
-    if(!anterior){
+    if(!anterior) {
         novo->prox = *lista;
         *lista = novo;
     }
-    else{
+    else {
         novo->prox = anterior->prox;
         anterior->prox = novo;
     }
 }
 
-void insereFinalL(No **lista, int valor) {
-    No *novo = new No();
-    novo->dado = valor;
-    novo->prox = NULL;
+No* verificaOrdem(No **lista) {
+    //No *anterior = NULL;
+    //No *atual = *lista;
+    No *n = *lista;
 
     No *aux = *lista;
+    No *t;
+    int c;
 
-    if(!aux)
-    {
-        *lista = novo;
-    }
-    else{
-        while(aux->prox){
-            aux = aux->prox;
+    if(n == NULL && n->prox == NULL)
+        return NULL;
+
+    while(aux != NULL) {
+        t = aux->prox;
+        while(t != NULL) {
+            if(aux->dado > t->dado) {
+                c = aux->dado;
+                aux->dado = t->dado;
+                t->dado = c;
+            }
+            t = t->prox;
         }
-        aux->prox = novo;
+        aux = aux->prox;
     }
+    return n;
 }
 
-int total(No **lista) {
-    int t=0;
-
-    No *n = *lista;
-    while (n)
-    {
-        t++;
-        n = n->prox;
-    }
-
-    return t;
-}
-
-bool lePosicao(No **lista, int posicao, DadoNoLista *valor) {
-    int cont = 0;
-
-    No *n = *lista;
-    while (n)
-    {
-        if(cont == posicao)
-        {
-            *valor = n->dado;
-            return true;
-        }
-
-        n = n->prox;
-        cont++;
-    }
-
-    return false;
-}
-
-bool removePosicaoL(No **lista, int pos) {
-    No *anterior = nullptr;
-    No *atual = *lista;
-
-    int cont = 0;
-
-    while(atual && pos != cont) {
-        anterior = atual;
-        atual = atual->prox;
-        cont++;
-    }
-    /// Pode sair do laco sem encontrar a posicao (atual==NULL)
-    /// Se encontrar >>> atual tem o endereco do elemento para excluir
-    /// NULL == false    >>> !false == true
-    if(!atual) /// Se atual e NULL >> nao encontrou
-        return false;
-    if (!anterior) /// Se anterior e igual a NULL
-    {
-        /// O elemento a ser excluido esta no inicio da lista
-        *lista = atual->prox;
-    }
-    else { /// Elemento esta no meio ou no fim
-        anterior->prox = atual->prox;
-    }
-    /// Libera a memoria do elemento
-    delete(atual);
-    return true;
-}
-
-void uniao(No **lista1, No **lista2, No **listaSaida) {
-    destroiL(listaSaida);
-
-    No *n = *lista1;
-    while(n) {
-        insereL(listaSaida, n->dado);
-        n = n->prox;
-    }
-
-    n = *lista2;
-    while(n) {
-        insereL(listaSaida, n->dado);
-        n = n->prox;
-    }
-}
-
-#endif /// _HPP_LISTA_DINAMICA
+#endif // _HPP_LISTA_DINAMICA
