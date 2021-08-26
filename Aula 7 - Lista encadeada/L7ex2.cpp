@@ -7,9 +7,9 @@ using namespace std;
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
-    No* lista, *lista2;
+    No* lista, *lista2, *listaResultante;
 
-    int elemento, posicaoElemento;
+    int elemento, posicaoElemento, posicao;
 
     int menu;
     bool controle = false;
@@ -24,7 +24,16 @@ int main(void) {
         cout << "* 5) Buscar elemento informado;                                      *" << endl;
         cout << "* 6) Mostrar listas;                                                 *" << endl;
         cout << "* 7) Incluir elemento no inicio da lista 2;                          *" << endl;
+        cout << "*                                                                    *" << endl;
+        cout << "****************************** QUESTAO 2 *****************************" << endl;
+        cout << "*                                                                    *" << endl;
         cout << "* 8) Verifica se as listas sao iguais;                               *" << endl;
+        cout << "* 9) Insere elemento ordenadamente na lista;                         *" << endl;
+        cout << "* 10) Insere elemento no inicio da lista;                            *" << endl;
+        cout << "* 11) Total de elementos na lista;                                   *" << endl;
+        cout << "* 12) Verifica elemento pela posicao;                                *" << endl;
+        cout << "* 13) Remover elemento pela posicao informada;                       *" << endl;
+        cout << "* 14) Unir lista 1 e lista 2.                                        *" << endl;
         cout << "* 0) Encerrar programa.                                              *" << endl;
         cout << "*                                                                    *" << endl;
         cout << "**********************************************************************" << endl << endl;
@@ -185,6 +194,110 @@ int main(void) {
                         cout << "As listas sao iguais." << endl << endl;
                     else
                         cout << "As listas nao sao iguais." << endl << endl;
+                }
+
+                break;
+
+            case 9:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira um valor ordenadamante: ";
+                    cin >> elemento;
+                    fflush(stdin);
+
+                    insereOrdenadoL(&lista, elemento);
+                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
+                }
+
+                break;
+
+            case 10:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira um valor no final da lista: ";
+                    cin >> elemento;
+                    fflush(stdin);
+
+                    insereFinalL(&lista, elemento);
+                    cout << "\nValor " << elemento << " inserido na fila." << endl << endl;
+                }
+
+                break;
+
+            case 11:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Total de elementos da lista: " << total(&lista) << endl << endl;
+                }
+
+                break;
+
+            case 12:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira uma posicao para verificar o valor contido nela: ";
+                    cin >> posicao;
+                    fflush(stdin);
+
+                    if(lePosicao(&lista, posicao, &elemento))
+                        cout << "\nNa posicao " << posicao << " fica o elemento "<< elemento << "." << endl << endl;
+                    else
+                        cout << "\nPosicao " << posicao << " nao encontrada." << endl << endl;
+                }
+
+                break;
+
+            case 13:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    cout << "Insira uma posicao para remover o valor contido nela: ";
+                    cin >> posicao;
+                    fflush(stdin);
+
+                    if(removePosicaoL(&lista, posicao))
+                        cout << "\nElemento " << elemento << " removido da posicao " << posicao << "." << endl << endl;
+                    else
+                        cout << "\nPosicao " << posicao << " nao encontrada." << endl << endl;
+                }
+
+                break;
+
+            case 14:
+                system("cls");
+
+                if(controle == false) {
+                    system("cls");
+
+                    cout << "Escolha a opcao 1 antes de continuar." << endl << endl;
+                } else {
+                    uniao(&lista, &lista2, &listaResultante);
+                    cout << "Lista resultante: ";
+                    mostraL(&listaResultante);
                 }
 
                 break;
