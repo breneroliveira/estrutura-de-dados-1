@@ -7,19 +7,16 @@ using namespace std;
 
 typedef int DadoNoLista;
 
-struct No
-{
+struct No{
     DadoNoLista dado;
     struct No *prox;
 };
 
-void inicializaL(No **lista)
-{
+void inicializaL(No **lista){
     *lista = nullptr;
 }
 
-bool vaziaL(No **lista)
-{
+bool vaziaL(No **lista){
     if(! (*lista))
         return true;
     else
@@ -27,11 +24,9 @@ bool vaziaL(No **lista)
 }
 
 /// Excluir todos os elementos da lista
-void destroiL(No **lista)
-{
+void destroiL(No **lista){
     No *n = *lista;
-    while (n)
-    {
+    while (n){
         No *aux  = n;
         n = n->prox;
         delete aux;
@@ -40,27 +35,25 @@ void destroiL(No **lista)
 }
 
 /// Insere no inicio da lista
-bool insereL(No **lista, DadoNoLista valor)
-{
+bool insereL(No **lista, DadoNoLista valor){
 
     No *novo = new No(); /// Aloca memoria para o no
     if (!novo)
         return false;
 
     novo->dado = valor;
-    novo->prox = *lista; /// INICIO DA LISTA
-    *lista = novo; /// PONTEIRO DO INICIO APONTA PARA O PROXIMO NO
+    novo->prox = *lista;
+    *lista = novo;
 
     return true;
 }
 
-void mostraL(No **lista)
-{
+void mostraL(No **lista){
     No *n = *lista;
 
     cout << "L:{";
-    while(n) /// Enquanto n nao for NULL fica no laco
-    {
+    while(n) {/// Enquanto n nao for NULL fica no laco
+
         cout << n->dado;
         n = n->prox;
 
@@ -71,14 +64,12 @@ void mostraL(No **lista)
 }
 
 /// Remover um valor especifico da lista
-bool removeL(No **lista, DadoNoLista valor)
-{
+bool removeL(No **lista, DadoNoLista valor){
     No *anterior = nullptr;
     No *atual = *lista;
     /// Fica no laco enquanto tiver elementos na lista
     /// e nao encontrar o valor procurado
-    while(atual && atual->dado != valor)
-    {
+    while(atual && atual->dado != valor){
         anterior = atual;
         atual = atual->prox;
     }
@@ -87,13 +78,12 @@ bool removeL(No **lista, DadoNoLista valor)
     /// NULL == false    >>> !false == true
     if(!atual) /// Se atual e NULL >> nao encontrou
         return false;
-    if (!anterior) /// Se anterior e igual a NULL
-    {
+    if (!anterior) {/// Se anterior e igual a NULL
         /// O elemento a ser excluido esta no inicio da lista
         *lista = atual->prox;
     }
-    else   /// Elemento esta no meio ou no fim
-    {
+    else {  /// Elemento esta no meio ou no fim
+
         anterior->prox = atual->prox;
     }
     /// Libera a memoria do elemento
@@ -101,11 +91,9 @@ bool removeL(No **lista, DadoNoLista valor)
     return true;
 }
 
-No* buscaL(No **lista, DadoNoLista valor)
-{
+No* buscaL(No **lista, DadoNoLista valor){
     No *n = *lista;
-    while (n)
-    {
+    while (n){
         if (n->dado == valor)
             return n;
 
@@ -115,13 +103,11 @@ No* buscaL(No **lista, DadoNoLista valor)
     return nullptr;
 }
 
-bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
-{
+bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao){
     No *anterior = NULL;
     No *atual = *lista;
     int p = 0;
-    while (atual && p!=posicao)
-    {
+    while (atual && p!=posicao){
         anterior = atual;
         atual = atual->prox;
         p++;
@@ -131,13 +117,12 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
 
     No *novo = new No();
     novo->dado = valor;
-    if (!anterior) /// Primeira posicao
-    {
+    if (!anterior) { /// Primeira posicao
+
         novo->prox = *lista;
         *lista = novo;
     }
-    else
-    {
+    else{
         novo->prox = anterior->prox;
         anterior->prox = novo;
     }
@@ -145,76 +130,18 @@ bool inserePosicaoL(No **lista, DadoNoLista valor, int posicao)
     return true;
 }
 
-void insereOrdenadoL(No **lista, int valor) {
-    No *anterior = NULL;
-    No *atual = *lista;
-    while(atual && atual->dado < valor) {
-        anterior = atual;
-        atual = atual->prox;
-    }
+void mostraLInversa(No **lista){
+    No *nova_lista = NULL;
+    No *tmp;
+    int i;
 
-    No *novo = new No();
-    novo->dado = valor;
-    if(!anterior) {
-        novo->prox = *lista;
-        *lista = novo;
+    while (*lista != NULL){
+        tmp = *lista;
+        *lista = (*lista)->prox;
+        tmp->prox = nova_lista;
+        nova_lista = tmp;
     }
-    else {
-        novo->prox = anterior->prox;
-        anterior->prox = novo;
-    }
+    *lista = nova_lista;
 }
 
-bool removePosicaoL(No **lista, int pos) {
-    No *anterior = nullptr;
-    No *atual = *lista;
-
-    int cont = 0;
-
-    while(atual && pos != cont) {
-        anterior = atual;
-        atual = atual->prox;
-        cont++;
-    }
-    /// Pode sair do laco sem encontrar a posicao (atual==NULL)
-    /// Se encontrar >>> atual tem o endereco do elemento para excluir
-    /// NULL == false    >>> !false == true
-    if(!atual) /// Se atual e NULL >> nao encontrou
-        return false;
-    if (!anterior) /// Se anterior e igual a NULL
-    {
-        /// O elemento a ser excluido esta no inicio da lista
-        *lista = atual->prox;
-    }
-    else { /// Elemento esta no meio ou no fim
-        anterior->prox = atual->prox;
-    }
-    /// Libera a memoria do elemento
-    delete(atual);
-    return true;
-}
-
-int total(No **lista) {
-    int t=0;
-
-    No *n = *lista;
-    while (n)
-    {
-        t++;
-        n = n->prox;
-    }
-
-    return t;
-}
-
-void ordemInversa(No **lista) {
-    No *listaInversa;
-
-    for(int i = 0; i < total(lista); i++) {
-        removePosicaoL(lista, i);
-    }
-    12345
-    
-}
-
-#endif /// _HPP_LISTA_DINAMICA
+#endif // _HPP_LISTA_DINAMICA
