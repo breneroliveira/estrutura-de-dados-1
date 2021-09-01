@@ -7,7 +7,7 @@ using namespace std;
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
-    No* lista, *lista2, *listaResultante;
+    No *lista, *lista2, *listaResultante;
 
     int elemento, posicaoElemento, posicao;
 

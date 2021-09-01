@@ -1,10 +1,13 @@
 #ifndef _HPP_LISTA_DINAMICA
 #define _HPP_LISTA_DINAMICA
 
-typedef char DadoNoLista;
+#include <iostream>
 
-struct No
-{
+using namespace std;
+
+typedef int DadoNoLista;
+
+struct No {
     DadoNoLista dado;
     struct No *prox;
 };
@@ -35,26 +38,72 @@ void destroiL(No **lista)
     *lista = nullptr;
 }
 
-void mostraInvL(No **lista, bool primeiroNo=true)
+int total(No **lista)
 {
-    No *no = *lista;
+    int t = 0;
 
-    if(!no) /// A lista esta vazia ?
+    No *n = *lista;
+    while (n)
     {
-        cout << "L:{";
-        return;
+        t++;
+        n = n->prox;
     }
-    else {
-        mostraInvL(&no->prox, false);
 
-        if(no->prox)
-            cout << ", ";
+    return t;
+}
 
-        cout << no->dado;
+bool removeInicioL(No **lista, DadoNoLista *valor)
+{
+    if(vaziaL(lista))
+        return false;
 
-        if(primeiroNo)
-            cout << "}\n";
+    /// Pega a referencia do primeiro no e seu valor
+    No *no = *lista;
+    *valor = no->dado;
+
+    /// Atualiza o inicio da lista para o proximo no
+    *lista = no->prox;
+
+    /// Remove o no
+    delete(no);
+    return true;
+}
+
+void insereFinalL(No **lista, int valor)
+{
+    No *novo = new No();
+    novo->dado = valor;
+    novo->prox = NULL;
+
+    No *aux = *lista;
+
+    if(!aux)
+    {
+        *lista = novo;
     }
+    else{
+        while(aux->prox){
+            aux = aux->prox;
+        }
+        aux->prox = novo;
+    }
+}
+
+bool retiraInicioInsereFimL(No **lista, int cont)
+{
+    if(total(lista) < cont)
+        return false;
+
+    DadoNoLista valor;
+    for (int i = 0; i < cont; i++)
+    {
+        if(removeInicioL(lista, &valor))
+        {
+            insereFinalL(lista, valor);
+        }
+    }
+
+    return true;
 }
 
 /// Insere no inicio da lista
@@ -76,7 +125,7 @@ void mostraL(No **lista, string label="L")
     No *n = *lista;
 
     cout << label << ":{";
-    while(n) /// Enquanto n nao for NULL fica no laco
+    while(n) /// enquanto n nao for NULL fica no laco
     {
         cout << n->dado;
         n = n->prox;
@@ -181,26 +230,6 @@ bool igual(No **lista1, No **lista2)
     return false;
 }
 
-void insereFinalL(No **lista, int valor)
-{
-    No *novo = new No();
-    novo->dado = valor;
-    novo->prox = NULL;
-
-    No *aux = *lista;
-
-    if(!aux)
-    {
-        *lista = novo;
-    }
-    else{
-        while(aux->prox){
-            aux = aux->prox;
-        }
-        aux->prox = novo;
-    }
-}
-
 void insereOrdenadoL(No **lista, int valor)
 {
     No *anterior = NULL;
@@ -212,28 +241,14 @@ void insereOrdenadoL(No **lista, int valor)
 
     No *novo = new No();
     novo->dado = valor;
-    if(!anterior){
+    if(!anterior) {
         novo->prox = *lista;
         *lista = novo;
     }
-    else{
+    else {
         novo->prox = anterior->prox;
         anterior->prox = novo;
     }
-}
-
-int total(No **lista)
-{
-    int t=0;
-
-    No *n = *lista;
-    while (n)
-    {
-        t++;
-        n = n->prox;
-    }
-
-    return t;
 }
 
 bool lePosicao(No **lista, int posicao, DadoNoLista *valor)
@@ -261,7 +276,7 @@ bool removePosicaoL(No **lista, int pos)
     No *anterior = nullptr;
     No *atual = *lista;
 
-    int cont=0;
+    int cont = 0;
     while(atual && pos != cont)
     {
         anterior = atual;
@@ -278,11 +293,11 @@ bool removePosicaoL(No **lista, int pos)
         /// O elemento a ser excluido esta no inicio da lista
         *lista = atual->prox;
     }
-    else /// Elemento esta no meio ou no fim
+    else   /// Elemento esta no meio ou no fim
     {
         anterior->prox = atual->prox;
     }
-    /// Libera a memória do elemento
+    /// Libera a memoria do elemento
     delete(atual);
     return true;
 }

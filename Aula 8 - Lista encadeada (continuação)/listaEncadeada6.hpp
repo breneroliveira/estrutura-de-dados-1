@@ -1,7 +1,13 @@
 #ifndef _HPP_LISTA_DINAMICA
 #define _HPP_LISTA_DINAMICA
 
-typedef char DadoNoLista;
+#include <iostream>
+
+using namespace std;
+
+#include <string>
+
+typedef string DadoNoLista;
 
 struct No
 {
@@ -35,31 +41,10 @@ void destroiL(No **lista)
     *lista = nullptr;
 }
 
-void mostraInvL(No **lista, bool primeiroNo=true)
-{
-    No *no = *lista;
-
-    if(!no) /// A lista esta vazia ?
-    {
-        cout << "L:{";
-        return;
-    }
-    else {
-        mostraInvL(&no->prox, false);
-
-        if(no->prox)
-            cout << ", ";
-
-        cout << no->dado;
-
-        if(primeiroNo)
-            cout << "}\n";
-    }
-}
-
 /// Insere no inicio da lista
 bool insereL(No **lista, DadoNoLista valor)
 {
+
     No *novo = new No(); /// Aloca memoria para o no
     if (!novo)
         return false;
@@ -69,6 +54,77 @@ bool insereL(No **lista, DadoNoLista valor)
     *lista = novo;
 
     return true;
+}
+
+int contaNoL(No **lista, DadoNoLista valor)
+{
+    int cont = 0;
+
+    No *n = *lista;
+    while (n)
+    {
+        if (n->dado == valor)
+            cont++;
+
+        n = n->prox;
+    }
+
+    return cont;
+}
+
+void naoSeguras(No **senhas, No **senhasNS)
+{
+    destroiL(senhasNS);
+    inicializaL(senhasNS);
+
+    No *n = *senhas;
+    while (n)
+    {
+        if(n->dado.size()< 4 || contaNoL(senhas, n->dado) > 5) /// Verifica se a senha e "nao segura"
+        {
+            if(contaNoL(senhasNS, n->dado) == 0) /// Para nao inserir senhas repetidas na lista
+                insereL(senhasNS, n->dado);
+        }
+
+        n = n->prox;
+    }
+}
+
+bool removeInicioL(No **lista, DadoNoLista *valor)
+{
+    if(vaziaL(lista))
+        return false;
+
+    /// Pega a referencia do primeiro no e seu valor
+    No *no = *lista;
+    *valor = no->dado;
+
+    /// Atualiza o inicio da lista para o proximo no
+    *lista = no->prox;
+
+    // Remove o no
+    delete(no);
+    return true;
+}
+
+void insereFinalL(No **lista, int valor)
+{
+    No *novo = new No();
+    novo->dado = valor;
+    novo->prox = NULL;
+
+    No *aux = *lista;
+
+    if(!aux)
+    {
+        *lista = novo;
+    }
+    else{
+        while(aux->prox){
+            aux = aux->prox;
+        }
+        aux->prox = novo;
+    }
 }
 
 void mostraL(No **lista, string label="L")
@@ -181,61 +237,6 @@ bool igual(No **lista1, No **lista2)
     return false;
 }
 
-void insereFinalL(No **lista, int valor)
-{
-    No *novo = new No();
-    novo->dado = valor;
-    novo->prox = NULL;
-
-    No *aux = *lista;
-
-    if(!aux)
-    {
-        *lista = novo;
-    }
-    else{
-        while(aux->prox){
-            aux = aux->prox;
-        }
-        aux->prox = novo;
-    }
-}
-
-void insereOrdenadoL(No **lista, int valor)
-{
-    No *anterior = NULL;
-    No *atual = *lista;
-    while(atual && atual->dado < valor){
-        anterior = atual;
-        atual = atual->prox;
-    }
-
-    No *novo = new No();
-    novo->dado = valor;
-    if(!anterior){
-        novo->prox = *lista;
-        *lista = novo;
-    }
-    else{
-        novo->prox = anterior->prox;
-        anterior->prox = novo;
-    }
-}
-
-int total(No **lista)
-{
-    int t=0;
-
-    No *n = *lista;
-    while (n)
-    {
-        t++;
-        n = n->prox;
-    }
-
-    return t;
-}
-
 bool lePosicao(No **lista, int posicao, DadoNoLista *valor)
 {
     int cont=0;
@@ -261,15 +262,15 @@ bool removePosicaoL(No **lista, int pos)
     No *anterior = nullptr;
     No *atual = *lista;
 
-    int cont=0;
+    int cont = 0;
     while(atual && pos != cont)
     {
         anterior = atual;
         atual = atual->prox;
         cont++;
     }
-    /// Pode sair do laco sem encontrar a posicao (atual==NULL)
-    /// Se encontrar >>> atual tem o endereco do elemento para excluir
+    /// pode sair do laco sem encontrar a posicao (atual==NULL)
+    /// se encontrar >>> atual tem o endereco do elemento para excluir
     /// NULL == false    >>> !false == true
     if(!atual) /// Se atual e NULL >> nao encontrou
         return false;
@@ -282,7 +283,7 @@ bool removePosicaoL(No **lista, int pos)
     {
         anterior->prox = atual->prox;
     }
-    /// Libera a memória do elemento
+    /// Libera a memoria do elemento
     delete(atual);
     return true;
 }
@@ -304,6 +305,20 @@ void uniao(No **lista1, No **lista2, No **listaSaida)
         insereL(listaSaida, n->dado);
         n = n->prox;
     }
+}
+
+int total(No **lista)
+{
+    int t=0;
+
+    No *n = *lista;
+    while (n)
+    {
+        t++;
+        n = n->prox;
+    }
+
+    return t;
 }
 
 #endif /// _HPP_LISTA_DINAMICA
