@@ -180,4 +180,8 @@ bool inserePosicaoL(Lista *lista, DadoNoLista valor, int posicao)
     return true;
 }
 
+void mostraDescritorL(Lista *lista) {
+    cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+}
+
 #endif /// _HPP_LISTA_DESCRITOR
