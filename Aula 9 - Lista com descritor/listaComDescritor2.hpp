@@ -58,8 +58,8 @@ struct Lista {
 /// Quando cout receber uma struct No
 ostream& operator<<(ostream& os, const No *n)
 {
-    /// cout << n
-    return os << n->dado.codigo << n->dado.nome << n->dado.idade << n->dado.salario;
+    /// cout << n;
+    return os << "[" << n->dado.codigo << ", " << n->dado.nome << ", " << n->dado.idade << ", " << n->dado.salario << "]";
 }
 
 /// Quanto cout receber uma struct Lista
@@ -101,7 +101,19 @@ bool insereInicioL(Lista *lista, DadoNoLista valor)
     return true;
 }
 
-bool removeL(Lista *lista, DadoNoLista valor)
+void insereFinalL(Lista *lista, DadoNoLista valor) {
+    No *novo = new No();
+
+    novo->dado = valor; /// Novo valor que sera inserido na lista (Guria) novo->dado = Guria
+    novo->prox = lista->fim; // Fulano no prox                            novo->prox = Fulano
+    lista->fim = novo; // Guria no fim                                    lista->fim = Guria
+    lista->tamanho++;
+
+    if(!lista->fim)
+        lista->fim = lista->inicio;
+}
+
+/*bool removeL(Lista *lista, DadoNoLista valor)
 {
     No *anterior = nullptr;
     No *atual = lista->inicio;
@@ -135,14 +147,14 @@ bool removeL(Lista *lista, DadoNoLista valor)
 
     delete(atual);
     return true;
-}
+}*/
 
-No* buscaL(Lista *lista, DadoNoLista valor)
+No* buscaLCodigo(Lista *lista, DadoNoLista valor)
 {
     No *n = lista->inicio;
     while (n)
     {
-        if (n->dado == valor)
+        if (n->dado.codigo == valor.codigo)
             return n;
 
         n = n->prox;

@@ -3,19 +3,44 @@
 
 using namespace std;
 
-#include "listaComDescritor1.hpp"
+#include "listaComDescritor2.hpp"
 
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
     Lista *lista = new Lista(); /// Executa o construtor (inicializa a lista)
+    Funcionario f;
 
-    insereInicioL(lista, 10);
-    insereInicioL(lista, 20);
-    insereInicioL(lista, 30);
-    insereInicioL(lista, 40);
-    insereInicioL(lista, 50);
+    f.codigo = 1;
+    f.nome = "Fulano";
+    f.idade = 20;
+    f.salario = 3044.52;
+
+    insereInicioL(lista, f);
+
+    f.codigo = 2;
+    f.nome = "Ciclano";
+    f.idade = 30;
+    f.salario = 7054;
+
+    insereInicioL(lista, f);
+
+    f.codigo = 3;
+    f.nome = "Beltrano";
+    f.idade = 40;
+    f.salario = 9123.14;
+
+    insereInicioL(lista, f);
+
+    f.codigo = 4;
+    f.nome = "Guria";
+    f.idade = 19;
+    f.salario = 5000;
+
+    insereFinalL(lista, f);
+
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
+
     cout << "L[" << lista->tamanho << "]:{" << lista << "}" << endl;  /// Mostra a lista
 
     delete(lista); /// Executa desconstrutor (apaga todos os nos)

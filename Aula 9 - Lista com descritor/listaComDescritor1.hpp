@@ -181,7 +181,12 @@ bool inserePosicaoL(Lista *lista, DadoNoLista valor, int posicao)
 }
 
 void mostraDescritorL(Lista *lista) {
-    cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+    string verifica = "NULL";
+
+    if(vaziaL(lista))
+        cout << "Descritor [" << 0 << ", " << verifica << ", " << verifica << "]" << endl << endl;
+    else
+        cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
 }
 
 #endif /// _HPP_LISTA_DESCRITOR

@@ -15,7 +15,9 @@ int main(void) {
     insereInicioL(lista, 30);
     insereInicioL(lista, 40);
     insereInicioL(lista, 50);
+
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
+
     cout << "L[" << lista->tamanho << "]:{" << lista << "}" << endl;  /// Mostra a lista
 
     delete(lista); /// Executa desconstrutor (apaga todos os nos)
