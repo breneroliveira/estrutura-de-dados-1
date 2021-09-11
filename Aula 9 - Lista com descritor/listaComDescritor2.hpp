@@ -101,16 +101,24 @@ bool insereInicioL(Lista *lista, DadoNoLista valor)
     return true;
 }
 
-void insereFinalL(Lista *lista, DadoNoLista valor) {
+bool insereFinalL(Lista *lista, DadoNoLista valor) {
     No *novo = new No();
 
-    novo->dado = valor; /// Novo valor que sera inserido na lista (Guria) novo->dado = Guria
-    novo->prox = lista->fim; // Fulano no prox                            novo->prox = Fulano
-    lista->fim = novo; // Guria no fim                                    lista->fim = Guria
+    if (!novo)
+        return false;
+
+    novo->dado = valor;
+    novo->prox = NULL;
+
+    if(!lista->inicio)
+        lista->inicio = novo;
+    else
+        lista->fim->prox = novo;
+
+    lista->fim = novo;
     lista->tamanho++;
 
-    if(!lista->fim)
-        lista->fim = lista->inicio;
+    return true;
 }
 
 /*bool removeL(Lista *lista, DadoNoLista valor)

@@ -39,6 +39,20 @@ int main(void) {
 
     insereFinalL(lista, f);
 
+    f.codigo = 5;
+    f.nome = "Guri";
+    f.idade = 25;
+    f.salario = 8853.14;
+
+    insereInicioL(lista, f);
+
+    f.codigo = 6;
+    f.nome = "Lolo";
+    f.idade = 40;
+    f.salario = 5000;
+
+    insereFinalL(lista, f);
+
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
 
     cout << "L[" << lista->tamanho << "]:{" << lista << "}" << endl;  /// Mostra a lista
