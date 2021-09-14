@@ -59,6 +59,8 @@ int main(void) {
 
     cout << "\nMedia dos salarios (R$): " << mediaSalario(lista) << endl;
 
+    funcionarioSalarioMenorMedia(lista);
+
     delete(lista); /// Executa desconstrutor (apaga todos os nos)
 
     return EXIT_SUCCESS;

@@ -228,4 +228,24 @@ float mediaSalario(Lista *lista) {
     return (media / lista->tamanho);
 }
 
+void funcionarioSalarioMenorMedia(Lista *lista) {
+    No *n = lista->inicio;
+
+    cout << "\nFuncionarios com o salario menor que a media: ";
+
+    while(n) {
+        if(n->dado.salario < mediaSalario(lista))
+            cout << n->dado.nome;
+
+        n = n->prox;
+
+        if(n && (n->dado.salario < mediaSalario(lista)))
+            cout << ", ";
+        else if(!n || n == lista->inicio)
+            cout << "";
+    }
+
+    cout << endl;
+}
+
 #endif /// _HPP_LISTA_DESCRITOR
