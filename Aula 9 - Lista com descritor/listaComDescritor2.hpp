@@ -40,7 +40,7 @@ struct Lista {
         /// cout << "\n executando o construtor...\n";
         inicio = nullptr;
         fim = nullptr;
-        tamanho =0;
+        tamanho = 0;
     }
     ~Lista() /// Desconstrutor /// Quando chame delete (ponteiro)
     {
@@ -213,6 +213,19 @@ bool inserePosicaoL(Lista *lista, DadoNoLista valor, int posicao)
 
 void mostraDescritorL(Lista *lista) {
     cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+}
+
+float mediaSalario(Lista *lista) {
+    float media = 0;
+
+    No *n = lista->inicio;
+
+    while(n) {
+        media = media + n->dado.salario;
+        n = n->prox;
+    }
+
+    return (media / lista->tamanho);
 }
 
 #endif /// _HPP_LISTA_DESCRITOR

@@ -57,6 +57,8 @@ int main(void) {
 
     cout << "L[" << lista->tamanho << "]:{" << lista << "}" << endl;  /// Mostra a lista
 
+    cout << "\nMedia dos salarios (R$): " << mediaSalario(lista) << endl;
+
     delete(lista); /// Executa desconstrutor (apaga todos os nos)
 
     return EXIT_SUCCESS;
