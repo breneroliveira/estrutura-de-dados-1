@@ -7,12 +7,6 @@
 
 using namespace std;
 
-/*struct Animal {
-    int codigo;
-    int idade;
-    float peso;
-};*/
-
 typedef Animal DadoNoLista;
 
 struct No {

@@ -241,7 +241,7 @@ void funcionarioSalarioMenorMedia(Lista *lista) {
 
         if(n && (n->dado.salario < mediaSalario(lista)))
             cout << ", ";
-        else if(!n || n == lista->inicio)
+        else
             cout << "";
     }
 
