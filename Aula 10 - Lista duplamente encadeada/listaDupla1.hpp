@@ -110,11 +110,11 @@ bool insereInicioL(Lista *lista, DadoNoLista valor) {
     return true;
 }
 
-No* buscaL(Lista *lista, DadoNoLista valor) {
+No* buscaL(Lista *lista, int valor) { /// Busca o animal pelo codigo
     No *n = lista->inicio;
 
     while(n) {
-        if (n->dado.codigo == valor.codigo)
+        if (n->dado.codigo == valor)
             return n;
 
         n = n->prox;
@@ -148,19 +148,48 @@ bool removerNoL(Lista *lista, No *no) { /// Remove do inicio (eu acho)
     return true;
 }
 
-bool removeL(Lista *lista, DadoNoLista valor) { /// Remove um valor indicado
+bool removeL(Lista *lista, int valor) { /// Remove um valor indicado
     No* no = buscaL(lista, valor);
 
     if(!no)
         return false;
 
-    removerNoL(lista, no);
+    if(no->dado.codigo == valor)
+        removerNoL(lista, no);
 
     return true;
 }
 
 void mostraDescritorL(Lista *lista) {
-    cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+    string verifica = "NULL";
+
+    if(vaziaL(lista))
+        cout << "Descritor [" << 0 << ", " << verifica << ", " << verifica << "]" << endl << endl;
+    else
+        cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+}
+
+void acessaTresUltimos(Lista *lista) {
+    No *no = lista->fim->ant;
+
+    string verifica = "NULL";
+
+    cout << "Tres ultimos [";
+
+    if(lista->fim)
+        cout << lista->fim;
+    else
+        cout << verifica;
+
+    if(lista->fim->ant)
+        cout << ", " << lista->fim->ant;
+    else if(!(lista->fim->ant))
+        cout << ", " << verifica;
+
+    if(no->ant)
+        cout << ", " << no->ant << "]\n";
+    else if(!(no->ant))
+        cout << ", " << verifica << "]\n";
 }
 
 #endif /// _HPP_LISTA_DUPLA
