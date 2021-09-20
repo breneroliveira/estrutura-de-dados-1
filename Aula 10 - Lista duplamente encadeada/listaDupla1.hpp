@@ -169,14 +169,14 @@ void mostraDescritorL(Lista *lista) {
         cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
 }
 
-void acessaTresUltimos(Lista *lista) {
+/*void acessaTresUltimos(Lista *lista) {
     No *no = lista->fim->ant;
 
     string verifica = "NULL";
 
     cout << "Tres ultimos [";
 
-    if(lista->fim)
+    if(lista->fim )
         cout << lista->fim;
     else
         cout << verifica;
@@ -190,6 +190,49 @@ void acessaTresUltimos(Lista *lista) {
         cout << ", " << no->ant << "]\n";
     else if(!(no->ant))
         cout << ", " << verifica << "]\n";
+}*/
+
+void acessaTresUltimos(Lista *lista) {
+    string verifica = "NULL";
+
+    cout << "Tres ultimos [";
+
+    if(lista->fim)
+        cout << lista->fim << ", ";
+    else if(lista->fim == nullptr)
+        cout << verifica << ", ";
+
+    if(lista->fim->ant)
+        cout << lista->fim->ant << ", ";
+    else if(lista->fim->ant == nullptr)
+        cout << verifica << ", ";
+
+    if(lista->fim->ant->ant)
+        cout << lista->fim->ant->ant << "]\n";
+    else if(lista->fim->ant->ant == nullptr)
+        cout << verifica << "]\n";
 }
+
+void separaPorPeso(Lista *lista) {
+    No *n = lista->inicio;
+    
+    Lista *listaMenor50 = new Lista();
+    Lista *listaMaior50 = new Lista();
+
+    if(vaziaL(lista)) {
+        cout << "Não ha animais na lista" << endl;
+    } else {
+        while(n) {
+            if(n->dado.peso < 50)
+                insereInicioL(listaMenor50, n->dado);
+            else if(n->dado.peso > 50)
+                insereInicioL(listaMaior50, n->dado);
+            n = n->prox;
+        }
+    }
+
+    cout << "\nAnimais (menos de 50Kg) [" << listaMenor50->tamanho << "]:{" << listaMenor50 << "}" << endl;
+    cout << "\nAnimais (mais de 50Kg) [" << listaMaior50->tamanho << "]:{" << listaMaior50 << "}" << endl;
+}    
 
 #endif /// _HPP_LISTA_DUPLA

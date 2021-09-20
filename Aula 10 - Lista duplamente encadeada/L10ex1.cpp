@@ -8,7 +8,6 @@ int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
     int contCodigo = 0;
-    No* aux = nullptr;
 
     Lista *lista = new Lista(); /// Executa o construtor (inicializa a lista)
     Animal a;
@@ -33,9 +32,9 @@ int main(void) {
     cout << "\n==========================================================================================================\n" << endl;
 
     /*insereInicioL(lista, Animal(++contCodigo, 2, 3.05));
-    insereInicioL(lista, Animal(++contCodigo, 7, 8.05));
+    insereInicioL(lista, Animal(++contCodigo, 7, 70));
     insereInicioL(lista, Animal(++contCodigo, 14, 6.05));
-    insereInicioL(lista, Animal(++contCodigo, 8, 2.05));*/
+    insereInicioL(lista, Animal(++contCodigo, 8, 51));*/
     
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
     mostrarInversoL(lista);
@@ -43,6 +42,8 @@ int main(void) {
     cout << endl;
 
     acessaTresUltimos(lista);
+
+    separaPorPeso(lista);
 
     delete(lista); /// Executa desconstrutor (apaga todos os nos)
 
