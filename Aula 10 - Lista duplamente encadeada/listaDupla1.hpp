@@ -169,29 +169,6 @@ void mostraDescritorL(Lista *lista) {
         cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
 }
 
-/*void acessaTresUltimos(Lista *lista) {
-    No *no = lista->fim->ant;
-
-    string verifica = "NULL";
-
-    cout << "Tres ultimos [";
-
-    if(lista->fim )
-        cout << lista->fim;
-    else
-        cout << verifica;
-
-    if(lista->fim->ant)
-        cout << ", " << lista->fim->ant;
-    else if(!(lista->fim->ant))
-        cout << ", " << verifica;
-
-    if(no->ant)
-        cout << ", " << no->ant << "]\n";
-    else if(!(no->ant))
-        cout << ", " << verifica << "]\n";
-}*/
-
 void acessaTresUltimos(Lista *lista) {
     string verifica = "NULL";
 
@@ -233,6 +210,51 @@ void separaPorPeso(Lista *lista) {
 
     cout << "\nAnimais (menos de 50Kg) [" << listaMenor50->tamanho << "]:{" << listaMenor50 << "}" << endl;
     cout << "\nAnimais (mais de 50Kg) [" << listaMaior50->tamanho << "]:{" << listaMaior50 << "}" << endl;
-}    
+}
+
+bool insereFinalL(Lista *lista, DadoNoLista valor) {
+    No *novo = new No();
+
+    if (!novo)
+        return false;
+
+    novo->dado = valor;
+    novo->ant = lista->fim;
+    novo->prox = nullptr;
+
+    if (!lista->inicio) /// Lista vazia?
+        lista->inicio = novo;
+    else
+        lista->fim->prox = novo;
+
+    lista->fim = novo;
+    lista->tamanho++;
+
+    return true;
+}
+
+bool removeInicioL(Lista *lista) {
+    No* no = lista->inicio;
+
+    if(!no)
+        return false;
+
+    if(lista->inicio)
+        removerNoL(lista, no);
+
+    return true;
+}
+
+bool removeUltimoL(Lista *lista) {
+    No* no = lista->fim;
+
+    if(!no)
+        return false;
+
+    if(lista->fim)
+        removerNoL(lista, no);
+
+    return true;
+}
 
 #endif /// _HPP_LISTA_DUPLA

@@ -12,9 +12,9 @@ int main(void) {
     Lista *lista = new Lista(); /// Executa o construtor (inicializa a lista)
     Animal a;
 
-    /*insereInicioL(lista, Animal(++contCodigo, 3, 12.78));
+    insereInicioL(lista, Animal(++contCodigo, 3, 12.78));
     insereInicioL(lista, Animal(++contCodigo, 2, 7.23));
-    insereInicioL(lista, Animal(++contCodigo, 7, 14.85));*/
+    insereInicioL(lista, Animal(++contCodigo, 7, 14.85));
 
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
     cout << "Animal[" << lista->tamanho << "]:{" << lista << "}" << endl;
@@ -31,10 +31,10 @@ int main(void) {
 
     cout << "\n==========================================================================================================\n" << endl;
 
-    /*insereInicioL(lista, Animal(++contCodigo, 2, 3.05));
+    insereInicioL(lista, Animal(++contCodigo, 2, 3.05));
     insereInicioL(lista, Animal(++contCodigo, 7, 70));
     insereInicioL(lista, Animal(++contCodigo, 14, 6.05));
-    insereInicioL(lista, Animal(++contCodigo, 8, 51));*/
+    insereInicioL(lista, Animal(++contCodigo, 8, 51));
     
     mostraDescritorL(lista); /// Mostra os descritores (tamanho, inicio e fim)
     mostrarInversoL(lista);
@@ -44,6 +44,23 @@ int main(void) {
     acessaTresUltimos(lista);
 
     separaPorPeso(lista);
+
+    /// Questão 2 abaixo
+    insereFinalL(lista, Animal(++contCodigo, 3, 12.78));
+    insereFinalL(lista, Animal(++contCodigo, 2, 7.23));
+
+    mostraDescritorL(lista);
+    cout << "Animal[" << lista->tamanho << "]:{" << lista << "}" << endl << endl;
+
+    removeInicioL(lista);
+
+    mostraDescritorL(lista);
+    cout << "Animal[" << lista->tamanho << "]:{" << lista << "}" << endl << endl;
+
+    removeUltimoL(lista);
+
+    mostraDescritorL(lista);
+    cout << "Animal[" << lista->tamanho << "]:{" << lista << "}" << endl << endl;
 
     delete(lista); /// Executa desconstrutor (apaga todos os nos)
 
