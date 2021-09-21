@@ -110,11 +110,11 @@ bool insereInicioL(Lista *lista, DadoNoLista valor) {
     return true;
 }
 
-No* buscaL(Lista *lista, int valor) { /// Busca o animal pelo codigo
+No* buscaL(Lista *lista, int code) { /// Busca o animal pelo codigo
     No *n = lista->inicio;
 
     while(n) {
-        if (n->dado.codigo == valor)
+        if (n->dado.codigo == code)
             return n;
 
         n = n->prox;
@@ -148,13 +148,13 @@ bool removerNoL(Lista *lista, No *no) { /// Remove do inicio (eu acho)
     return true;
 }
 
-bool removeL(Lista *lista, int valor) { /// Remove um valor indicado
-    No* no = buscaL(lista, valor);
+bool removeL(Lista *lista, int code) { /// Remove um valor indicado (por codigo)
+    No* no = buscaL(lista, code);
 
     if(!no)
         return false;
 
-    if(no->dado.codigo == valor)
+    if(no->dado.codigo == code)
         removerNoL(lista, no);
 
     return true;
