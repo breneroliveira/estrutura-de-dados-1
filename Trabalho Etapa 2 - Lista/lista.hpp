@@ -101,11 +101,45 @@ ostream& operator << (ostream& os, const Lista *l) {
     return os;
 }
 
+No *buscaL(Lista *lista, int id) {
+    No *n = lista->inicio;
+
+    while (n) {
+        if (n->dado->ID == id)
+            return n;
+
+        n = n->prox;
+    }
+
+    return nullptr;
+}
+
 bool vaziaL(Lista *lista) {
     if(!(lista->inicio))
         return true;
     else
         return false;
+}
+
+/// Insere no inicio da lista
+bool addUsuario(Lista *lista, Usuario *valor)
+{
+    No *novo = new No();
+    if (!novo)
+        return false;
+
+    novo->dado = valor;
+    novo->prox = lista->inicio;
+    lista->inicio = novo;
+    lista->tamanho++;
+    if (!lista->fim)
+        lista->fim = lista->inicio;
+
+    return true;
+}
+
+void imprimirUsuario(Lista *lista) {
+    cout << "\nL_Usuarios [" << lista->tamanho << "]:{" << lista << "}" << endl;
 }
 
 void mostraDescritorL(Lista *lista) {

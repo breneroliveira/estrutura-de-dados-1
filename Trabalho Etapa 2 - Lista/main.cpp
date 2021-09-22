@@ -6,6 +6,9 @@ using namespace std;
 
 #include "lista.hpp"
 
+//char elementoArquivo[80];
+//ifstream leitura;
+
 void addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
 
@@ -49,27 +52,61 @@ int main(void) {
 
     /// Adicionando usuarios
     novoUsr = new Usuario(4, 20, 0, "Joao"); /// id, idade, sexo, nome
-
-    /// insereL(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
+    addUsuario(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
 
     novoUsr = new Usuario(10, 30, 1, "Fernanda"); //id, idade, sexo, nome
-    /// insereL(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
+    addUsuario(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
 
     ///Mostra lista
     mostraDescritorL(listaUsuariosRede); /// Mostra os descritores (tamanho, inicio e fim)
-    cout << "L_Usuarios [" << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;  /// Mostra a lista
+    cout << "L_Usuarios [" << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl << endl;  /// Mostra a lista
+
+    string elementoArquivo;
+    ifstream leitura;
+    leitura.open("entrada.txt", ios::in);
+    string codigo;
+
+    if(leitura.is_open()) {
+        while(!leitura.eof()) {
+            //cout << elementoArquivo; 
+            leitura >> codigo;
+            
+            if(codigo == "addUsuario") {
+                int ID;
+                int idade;
+                int sexo;
+                string nome;
+
+                leitura >> ID;
+                leitura >> idade;
+                leitura >> sexo;
+                leitura >> nome;
+
+                Usuario *novo = new Usuario(ID, idade, sexo, nome);
+                addUsuario(listaUsuariosRede, novo);
+            } else if(codigo == "imprimirUsuario") {
+                imprimirUsuario(listaUsuariosRede);  
+            } else if(codigo.at(0) == '#') {
+                getline(leitura, elementoArquivo);
+            }
+        }
+    } else
+        cout << "Erro ao abrir o arquivo." << endl;
+
+    leitura.close();
 
     /// Adicionando amigo
-    addAmigo(listaUsuariosRede, 4, 10);
+    //addAmigo(listaUsuariosRede, 4, 10);
 
     /// Removendo amigo
-    removerAmigo(listaUsuariosRede,  4, 10);
+    //removerAmigo(listaUsuariosRede,  4, 10);
 
     /// Removendo usuario da rede
-    removerUsuarioRede(listaUsuariosRede, 10);
+    //removerUsuarioRede(listaUsuariosRede, 10);
 
-    removerTodosUsariosRede(listaUsuariosRede);
+    //removerTodosUsariosRede(listaUsuariosRede);
 
     delete listaUsuariosRede;
+
     return EXIT_SUCCESS;
 }

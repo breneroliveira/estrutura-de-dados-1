@@ -9,8 +9,7 @@ using namespace std;
 #include "filaPessoa.hpp"
 #include "filaTransportadora.hpp"
 
-int main(void)
-{
+int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
     ofstream escreveDoa("doacao.txt", ios::out);
