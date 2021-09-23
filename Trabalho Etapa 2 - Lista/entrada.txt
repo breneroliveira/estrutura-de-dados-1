@@ -1,9 +1,8 @@
-addUsuario 11 40 0 Fulano # addUsuario 14 33 0 Jesus
-addUsuario 12 25 0 Ciclano
-addUsuario 13 32 1 Beltrano
+addUsuario 6 40 0 Joao #primeiro usuário da rede
+addUsuario 4 25 0 Pedro
+addUsuario 3 10 0 Paulo
+addUsuario 7 30 1 Maria
+addUsuario 30 50 0 Francisco
+addUsuario 30 20 1 Mariana #não vai adicionar este usuário, pois o ID 30 já existe
 
 imprimirUsuario
-
-# addUsuario 14 33 0 Jesus
-# imprimirUsuario
-#imprimirUsuario

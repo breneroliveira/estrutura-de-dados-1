@@ -50,25 +50,16 @@ int main(void) {
     Usuario *novoUsr = nullptr;
     Lista *listaUsuariosRede = new Lista();
 
-    /// Adicionando usuarios
-    novoUsr = new Usuario(4, 20, 0, "Joao"); /// id, idade, sexo, nome
-    addUsuario(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
+    string elementoArquivo, codigo;
 
-    novoUsr = new Usuario(10, 30, 1, "Fernanda"); //id, idade, sexo, nome
-    addUsuario(listaUsuariosRede, novoUsr); /// Insere na lista o ponteiro para o usuario
-
-    ///Mostra lista
-    mostraDescritorL(listaUsuariosRede); /// Mostra os descritores (tamanho, inicio e fim)
-    cout << "L_Usuarios [" << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl << endl;  /// Mostra a lista
-
-    string elementoArquivo;
     ifstream leitura;
     leitura.open("entrada.txt", ios::in);
-    string codigo;
 
-    if(leitura.is_open()) {
+    ofstream escreve("saida.txt", ios::out);
+
+    /// Adicionando usuarios
+    if(leitura.is_open() && escreve.is_open()) {
         while(!leitura.eof()) {
-            //cout << elementoArquivo; 
             leitura >> codigo;
             
             if(codigo == "addUsuario") {
@@ -83,9 +74,13 @@ int main(void) {
                 leitura >> nome;
 
                 Usuario *novo = new Usuario(ID, idade, sexo, nome);
-                addUsuario(listaUsuariosRede, novo);
+
+                if(addUsuario(listaUsuariosRede, novo))
+                    escreve << "O usuário " << nome << " (" << ID << ") foi adicionado na rede." << endl;
+                else
+                    escreve << "Erro ao adicionar o usuário " << nome << " (" << ID << "). O ID " << ID << " já existe." << endl;
             } else if(codigo == "imprimirUsuario") {
-                imprimirUsuario(listaUsuariosRede);  
+                imprimirUsuario(listaUsuariosRede);
             } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
@@ -95,8 +90,7 @@ int main(void) {
 
     leitura.close();
 
-    /// Adicionando amigo
-    //addAmigo(listaUsuariosRede, 4, 10);
+    mostraDescritorL(listaUsuariosRede);
 
     /// Removendo amigo
     //removerAmigo(listaUsuariosRede,  4, 10);

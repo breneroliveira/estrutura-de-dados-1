@@ -121,34 +121,69 @@ bool vaziaL(Lista *lista) {
         return false;
 }
 
-/// Insere no inicio da lista
-bool addUsuario(Lista *lista, Usuario *valor)
-{
+No *buscaIDRepetido(Lista *lista, Usuario *valor) {
+    No *n = lista->inicio;
+
+    while(n) {
+        if (n->dado->ID == valor->ID)
+            return n;
+
+        n = n->prox;
+    }
+
+    return nullptr;
+}
+
+/// Insere ordenado na lista
+bool addUsuario(Lista *lista, Usuario *valor) {
+    No *aux;
     No *novo = new No();
-    if (!novo)
+    
+    if(!novo)
         return false;
 
     novo->dado = valor;
-    novo->prox = lista->inicio;
-    lista->inicio = novo;
-    lista->tamanho++;
-    if (!lista->fim)
-        lista->fim = lista->inicio;
+
+    if(!buscaIDRepetido(lista, valor)) {
+        if(lista->inicio == nullptr) {
+            novo->prox = nullptr;
+            lista->inicio = novo;
+            lista->fim = novo;
+        } else if(novo->dado->ID < lista->inicio->dado->ID) {
+            novo->prox = lista->inicio;
+            lista->inicio = novo;
+        } else {
+            aux = lista->inicio;
+
+            while(aux->prox && novo->dado->ID > aux->prox->dado->ID) {
+                aux = aux->prox;
+            }
+
+            novo->prox = aux->prox;
+            aux->prox = novo;
+            
+            if(!novo->prox)
+                lista->fim = novo;
+        }
+        
+        lista->tamanho++;
+    } else
+        return false;
 
     return true;
 }
 
 void imprimirUsuario(Lista *lista) {
-    cout << "\nL_Usuarios [" << lista->tamanho << "]:{" << lista << "}" << endl;
+    cout << "L_Usuarios [" << lista->tamanho << "]:{" << lista << "}" << endl;
 }
 
 void mostraDescritorL(Lista *lista) {
     string verifica = "NULL";
 
     if(vaziaL(lista))
-        cout << "Descritor [" << 0 << ", " << verifica << ", " << verifica << "]" << endl << endl;
+        cout << "Descritor [" << 0 << ", " << verifica << ", " << verifica << "]" << endl;
     else
-        cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl << endl;
+        cout << "Descritor [" << lista->tamanho << ", " << lista->inicio << ", " << lista->fim << "]" << endl;
 }
 
 #endif /// _HPP_LISTA
