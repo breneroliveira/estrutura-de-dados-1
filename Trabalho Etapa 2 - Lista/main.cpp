@@ -6,9 +6,6 @@ using namespace std;
 
 #include "lista.hpp"
 
-//char elementoArquivo[80];
-//ifstream leitura;
-
 void addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
 
