@@ -6,14 +6,25 @@ using namespace std;
 
 #include "lista.hpp"
 
-void addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
+bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
+    No *user1 = buscaL(listaUsuariosRede, ID1);
 
     /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
+    No *user2 = buscaL(listaUsuariosRede, ID2);
 
+    if(!user1 || !user2)
+        return false;
 
     /// insereL(usuario1->amigos, usuario2);
+    //addUsuario(user1->dado->amigos, user2->dado);
     /// insereL(usuario2->amigos, usuario1);
+    //addUsuario(user2->dado->amigos, user1->dado);
+
+    if(!addUsuario(user1->dado->amigos, user2->dado) || !addUsuario(user2->dado->amigos, user1->dado))
+        return false;
+
+    return true;
 }
 
 void removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
@@ -72,13 +83,30 @@ int main(void) {
 
                 Usuario *novo = new Usuario(ID, idade, sexo, nome);
 
-                if(addUsuario(listaUsuariosRede, novo))
+                if(addUsuario(listaUsuariosRede, novo)) {
                     escreve << "O usuário " << nome << " (" << ID << ") foi adicionado na rede." << endl;
-                else
+                } else {
                     escreve << "Erro ao adicionar o usuário " << nome << " (" << ID << "). O ID " << ID << " já existe." << endl;
-            } else if(codigo == "imprimirUsuario") {
-                imprimirUsuario(listaUsuariosRede);
-            } else if(codigo.at(0) == '#') {
+                }
+            } else if(codigo == "addAmigo") {
+                int IDAmigo1, IDAmigo2;
+
+                leitura >> IDAmigo1;
+                leitura >> IDAmigo2;
+
+                if(addAmigo(listaUsuariosRede, IDAmigo1, IDAmigo2)) {
+                    No *amigoBuscado1 = buscaL(listaUsuariosRede, IDAmigo1);
+                    No *amigoBuscado2 = buscaL(listaUsuariosRede, IDAmigo2);
+
+                    escreve << "Os usuários " << amigoBuscado1->dado->nome << " (" << amigoBuscado1->dado->ID << ") e " << amigoBuscado2->dado->nome << " (" << amigoBuscado2->dado->ID << ") se tornaram amigos." << endl;
+                } else {
+                    escreve << "Erro ao criar amizade dos usuários com IDs " << IDAmigo1 << " e " << IDAmigo2 <<"." << endl;
+                }
+            } else if(codigo == "imprimirUsuarios") {
+                imprimirUsuarios(listaUsuariosRede, &escreve);
+            } /*else if(codigo == "imprimirAmigos") {
+                //imprimirAmigos(listaUsuariosRede);
+            }*/ else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
         }
@@ -86,8 +114,10 @@ int main(void) {
         cout << "Erro ao abrir o arquivo." << endl;
 
     leitura.close();
+    escreve.close();
 
     mostraDescritorL(listaUsuariosRede);
+    cout << "Usuarios da rede: " << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;
 
     /// Removendo amigo
     //removerAmigo(listaUsuariosRede,  4, 10);

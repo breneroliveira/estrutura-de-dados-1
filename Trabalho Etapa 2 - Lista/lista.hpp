@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <string>
+#include <fstream>
 
 using namespace std;
 
@@ -85,8 +86,12 @@ struct Usuario {
 /// Quando cout receber uma struct No
 ostream& operator << (ostream& os, const No *n) {
     /// cout << n;
-    return os << "[" << n->dado->ID << ", " << n->dado->nome << ", " << n->dado->idade << ", " << n->dado->sexo << "]";
+    return os << n->dado->nome << " (" << n->dado->ID << ")";
 }
+/*ostream& operator << (ostream& os, const No *n) {
+    /// cout << n;
+    return os << "[" << n->dado->ID << ", " << n->dado->nome << ", " << n->dado->idade << ", " << n->dado->sexo << "]";
+}*/
 
 /// Quanto cout receber uma struct Lista
 ostream& operator << (ostream& os, const Lista *l) {
@@ -173,9 +178,18 @@ bool addUsuario(Lista *lista, Usuario *valor) {
     return true;
 }
 
-void imprimirUsuario(Lista *lista) {
-    cout << "L_Usuarios [" << lista->tamanho << "]:{" << lista << "}" << endl;
+void imprimirUsuarios(Lista *lista, ostream *escreve) {
+    *escreve << "Usuarios da rede: " << lista << endl;
+    
+    //escreve.close();
 }
+
+/*void imprimirAmigos(Lista *lista) {
+    ofstream escreve("saida.txt", ios::app);
+
+    if(escreve.is_open())
+        escreve << "L_Amigos [" << lista->tamanho << "]:{" << lista << "}" << endl;
+}*/
 
 void mostraDescritorL(Lista *lista) {
     string verifica = "NULL";
