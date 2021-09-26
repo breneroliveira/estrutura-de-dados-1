@@ -20,38 +20,19 @@ bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     return true;
 }
 
-//bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
-    /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
-    //No *user1 = buscaL(listaUsuariosRede, ID1); ESSE FOI COMENTADO
-
-    /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
-    //No *user2 = buscaL(listaUsuariosRede, ID2); ESSE FOI COMENTADO
-
-    /*if(user1 == user2)  ESSE FOI COMENTADO
-        return false;
-
-    if(!user1 || !user2)  ESSE FOI COMENTADO
-        return false;*/
-
-    /*if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
+bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
+    if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
         return false;
 
     if(!buscaL(listaUsuariosRede, ID1) || !buscaL(listaUsuariosRede, ID2))
-        return false;*/
+        return false;
 
-
-    /// removeL(usuario1->amigos, usuario2); /// remove o no
-    /// removeL(usuario2->amigos, usuario1); /// remove o no
-
-    /*if(!removeL(user1->dado->amigos, user2->dado) || !removeL(user2->dado->amigos, user1->dado)) ESSE FOI COMENTADO
-        return false;*/
-
-/*    if(!removeL(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
+    if(!removeL(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
        !removeL(buscaL(listaUsuariosRede, ID2)->dado->amigos, buscaL(listaUsuariosRede, ID1)->dado))
         return false;
 
     return true;
-}*/
+}
 
 void removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
@@ -131,6 +112,22 @@ int main(void) {
                 leitura >> IDAmigoBuscado;
 
                 imprimirAmigos(listaUsuariosRede, &escreve, IDAmigoBuscado);
+            } else if(codigo == "removerAmigo") {
+                int IDAmigoRemover1, IDAmigoRemover2;
+
+                leitura >> IDAmigoRemover1;
+                leitura >> IDAmigoRemover2;
+
+                if(removerAmigo(listaUsuariosRede, IDAmigoRemover1, IDAmigoRemover2)) {
+                    No *amigoRemovido1 = buscaL(listaUsuariosRede, IDAmigoRemover1);
+                    No *amigoRemovido2 = buscaL(listaUsuariosRede, IDAmigoRemover2);
+
+                    escreve << "Os usuarios " << amigoRemovido1->dado->nome << " (" << amigoRemovido1->dado->ID << ") e " << amigoRemovido2->dado->nome << " (" << amigoRemovido2->dado->ID << ") nao sao mais amigos." << endl;
+                    escreve.flush();
+                } else {
+                    escreve << "Erro ao remover a amizade. Não existe amizade entre os usuários com IDs " << IDAmigoRemover1 << " e " << IDAmigoRemover2 <<"." << endl;
+                    escreve.flush();
+                }
             } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }

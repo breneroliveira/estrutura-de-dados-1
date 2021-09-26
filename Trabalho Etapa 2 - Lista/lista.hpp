@@ -227,7 +227,7 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
     }
 }
 
-/*bool removeL(Lista *lista, DadoNoLista valor {
+bool removeL(Lista *lista, Usuario *valor) {
     No *anterior = nullptr;
     No *atual = lista->inicio;
     /// Fica no laco enquanto tiver elementos na lista
@@ -260,7 +260,7 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
 
     delete(atual);
     return true;
-}*/
+}
 
 void mostraDescritorL(Lista *lista) {
     string verifica = "NULL";

@@ -23,11 +23,11 @@ imprimirAmigos 7
 imprimirAmigos 30
 imprimirAmigos 9 #Erro, o usuário com ID 9 não existe
 
-addAmigo 3 3
+removerAmigo 4 3
+removerAmigo 4 3 #a amizade não existe mais, não tem amizade para remover
+removerAmigo 9 8 #usuários não existem, não tem amizade para remover
 
-addAmigo 30 4
-addAmigo 30 6
-addAmigo 30 3
+#imprimirUsuarios
 
 imprimirAmigos 3
-imprimirAmigos 30
+imprimirAmigos 4
