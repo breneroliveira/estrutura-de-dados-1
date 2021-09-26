@@ -7,45 +7,50 @@ using namespace std;
 #include "lista.hpp"
 
 bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
-    /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
-    No *user1 = buscaL(listaUsuariosRede, ID1);
-
-    /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
-    No *user2 = buscaL(listaUsuariosRede, ID2);
-
-    if(user1 == user2)
+    if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
         return false;
 
-    if(!user1 || !user2)
+    if(!buscaL(listaUsuariosRede, ID1) || !buscaL(listaUsuariosRede, ID2))
         return false;
 
-    /// insereL(usuario1->amigos, usuario2);
-    //addUsuario(user1->dado->amigos, user2->dado);
-    /// insereL(usuario2->amigos, usuario1);
-    //addUsuario(user2->dado->amigos, user1->dado);
-
-    if(!addUsuario(user1->dado->amigos, user2->dado) || !addUsuario(user2->dado->amigos, user1->dado))
+    if(!addUsuario(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
+       !addUsuario(buscaL(listaUsuariosRede, ID2)->dado->amigos, buscaL(listaUsuariosRede, ID1)->dado))
         return false;
 
     return true;
 }
 
-/*bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
+//bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
-    No *user1 = buscaL(listaUsuariosRede, ID1);
+    //No *user1 = buscaL(listaUsuariosRede, ID1); ESSE FOI COMENTADO
 
     /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
-    No *user2 = buscaL(listaUsuariosRede, ID2);
+    //No *user2 = buscaL(listaUsuariosRede, ID2); ESSE FOI COMENTADO
 
-    if(!user1 || !user2)
+    /*if(user1 == user2)  ESSE FOI COMENTADO
         return false;
+
+    if(!user1 || !user2)  ESSE FOI COMENTADO
+        return false;*/
+
+    /*if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
+        return false;
+
+    if(!buscaL(listaUsuariosRede, ID1) || !buscaL(listaUsuariosRede, ID2))
+        return false;*/
 
 
     /// removeL(usuario1->amigos, usuario2); /// remove o no
     /// removeL(usuario2->amigos, usuario1); /// remove o no
 
-    if(!removeL(user1->dado->amigos, user2->dado) || !removeL(user2->dado->amigos, user1->dado))
+    /*if(!removeL(user1->dado->amigos, user2->dado) || !removeL(user2->dado->amigos, user1->dado)) ESSE FOI COMENTADO
+        return false;*/
+
+/*    if(!removeL(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
+       !removeL(buscaL(listaUsuariosRede, ID2)->dado->amigos, buscaL(listaUsuariosRede, ID1)->dado))
         return false;
+
+    return true;
 }*/
 
 void removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {
