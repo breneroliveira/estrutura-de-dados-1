@@ -14,3 +14,20 @@ addAmigo 3 4
 addAmigo 8 9 #não cria a amizade porque os usuários não existem
 
 imprimirUsuarios
+
+
+imprimirAmigos 3
+imprimirAmigos 4
+imprimirAmigos 6
+imprimirAmigos 7
+imprimirAmigos 30
+imprimirAmigos 9 #Erro, o usuário com ID 9 não existe
+
+addAmigo 3 3
+
+addAmigo 30 4
+addAmigo 30 6
+addAmigo 30 3
+
+imprimirAmigos 3
+imprimirAmigos 30

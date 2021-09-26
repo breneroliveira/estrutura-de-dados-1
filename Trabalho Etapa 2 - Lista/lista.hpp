@@ -109,7 +109,7 @@ ostream& operator << (ostream& os, const Lista *l) {
 No *buscaL(Lista *lista, int id) {
     No *n = lista->inicio;
 
-    while (n) {
+    while(n) {
         if (n->dado->ID == id)
             return n;
 
@@ -179,16 +179,87 @@ bool addUsuario(Lista *lista, Usuario *valor) {
 }
 
 void imprimirUsuarios(Lista *lista, ostream *escreve) {
-    *escreve << "Usuarios da rede: " << lista << endl;
-    
-    //escreve.close();
+    No *n = lista->inicio;
+
+    if(!n)
+        *escreve << "Nao ha usuarios na rede." << endl;
+    else {
+        *escreve << "Usuarios da rede: ";
+        while(n) {
+            *escreve << n->dado->nome << " (" << n->dado->ID << ")";
+            
+            if((lista->fim->dado) != n->dado)
+                *escreve << ", ";
+            else
+                *escreve << "\n";
+            
+            n = n->prox;
+        }
+    }
 }
 
-/*void imprimirAmigos(Lista *lista) {
-    ofstream escreve("saida.txt", ios::app);
+void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
+    No *n;
 
-    if(escreve.is_open())
-        escreve << "L_Amigos [" << lista->tamanho << "]:{" << lista << "}" << endl;
+    if(buscaL(lista, id)) 
+        n = buscaL(lista, id)->dado->amigos->inicio;
+
+    if(!buscaL(lista, id)) {
+        *escreve << "\nErro ao imprimir amigos do usuario com ID " << id << ". O usuario nao existe." << endl;
+        (*escreve).flush();
+    } else {
+        *escreve << "Amigos de " << buscaL(lista, id)->dado->nome << " (" << buscaL(lista, id)->dado->ID << "): ";
+        (*escreve).flush();
+        while(n) {
+            *escreve << n->dado->nome << " (" << n->dado->ID << ")";
+            (*escreve).flush();
+
+            if((buscaL(lista, id)->dado->amigos->fim->dado->ID) != n->dado->ID) {
+                *escreve << ", ";
+                (*escreve).flush();
+            } else {
+                *escreve << "\n";
+                (*escreve).flush();
+            }
+            
+            n = n->prox;
+        }
+    }
+}
+
+/*bool removeL(Lista *lista, DadoNoLista valor {
+    No *anterior = nullptr;
+    No *atual = lista->inicio;
+    /// Fica no laco enquanto tiver elementos na lista
+    /// E nao encontrar o valor procurado
+    while(atual && atual->dado != valor)
+    {
+        anterior = atual;
+        atual = atual->prox;
+    }
+    /// Pode sair do laco sem encontrar o valor (atual==NULL)
+    /// Se encontrar >>> atual tem o endereco do elemento para excluir
+    /// NULL == false    >>> !false == true
+    if(!atual) /// Se atual e NULL >> nao encontrou
+        return false;
+    if (!anterior) /// Se anterior e igual a NULL
+    {
+        /// O elemento a ser excluido esta no inicio da lista
+        lista->inicio = atual->prox;
+        if (!lista->inicio) /// Lista ficou vazia ?
+            lista->fim = lista->inicio;
+    }
+    else /// Elemento esta no meio ou no fim
+    {
+        anterior->prox = atual->prox;
+        if (!atual->prox) /// Se for retirado ultimo da lista
+            lista->fim = anterior;
+    }
+    /// Libera a memoria do elemento
+    lista->tamanho--;
+
+    delete(atual);
+    return true;
 }*/
 
 void mostraDescritorL(Lista *lista) {

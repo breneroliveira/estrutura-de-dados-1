@@ -13,6 +13,9 @@ bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
     No *user2 = buscaL(listaUsuariosRede, ID2);
 
+    if(user1 == user2)
+        return false;
+
     if(!user1 || !user2)
         return false;
 
@@ -27,15 +30,23 @@ bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     return true;
 }
 
-void removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
+/*bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
+    No *user1 = buscaL(listaUsuariosRede, ID1);
 
     /// Buscar usuario 2, passando por parametro (listaUsuariosRede, ID2)
+    No *user2 = buscaL(listaUsuariosRede, ID2);
+
+    if(!user1 || !user2)
+        return false;
 
 
     /// removeL(usuario1->amigos, usuario2); /// remove o no
     /// removeL(usuario2->amigos, usuario1); /// remove o no
-}
+
+    if(!removeL(user1->dado->amigos, user2->dado) || !removeL(user2->dado->amigos, user1->dado))
+        return false;
+}*/
 
 void removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {
     /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
@@ -55,8 +66,9 @@ void removerTodosUsariosRede(Lista * listaUsuariosRede) {
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
-    Usuario *novoUsr = nullptr;
+    //Usuario *novoUsr = nullptr;
     Lista *listaUsuariosRede = new Lista();
+    //No *listaAmigos = new No();
 
     string elementoArquivo, codigo;
 
@@ -84,9 +96,11 @@ int main(void) {
                 Usuario *novo = new Usuario(ID, idade, sexo, nome);
 
                 if(addUsuario(listaUsuariosRede, novo)) {
-                    escreve << "O usuário " << nome << " (" << ID << ") foi adicionado na rede." << endl;
+                    escreve << "O usuario " << nome << " (" << ID << ") foi adicionado na rede." << endl;
+                    escreve.flush();
                 } else {
-                    escreve << "Erro ao adicionar o usuário " << nome << " (" << ID << "). O ID " << ID << " já existe." << endl;
+                    escreve << "Erro ao adicionar o usuario " << nome << " (" << ID << "). O ID " << ID << " ja existe." << endl;
+                    escreve.flush();
                 }
             } else if(codigo == "addAmigo") {
                 int IDAmigo1, IDAmigo2;
@@ -98,15 +112,21 @@ int main(void) {
                     No *amigoBuscado1 = buscaL(listaUsuariosRede, IDAmigo1);
                     No *amigoBuscado2 = buscaL(listaUsuariosRede, IDAmigo2);
 
-                    escreve << "Os usuários " << amigoBuscado1->dado->nome << " (" << amigoBuscado1->dado->ID << ") e " << amigoBuscado2->dado->nome << " (" << amigoBuscado2->dado->ID << ") se tornaram amigos." << endl;
+                    escreve << "Os usuarios " << amigoBuscado1->dado->nome << " (" << amigoBuscado1->dado->ID << ") e " << amigoBuscado2->dado->nome << " (" << amigoBuscado2->dado->ID << ") se tornaram amigos." << endl;
+                    escreve.flush();
                 } else {
                     escreve << "Erro ao criar amizade dos usuários com IDs " << IDAmigo1 << " e " << IDAmigo2 <<"." << endl;
+                    escreve.flush();
                 }
             } else if(codigo == "imprimirUsuarios") {
                 imprimirUsuarios(listaUsuariosRede, &escreve);
-            } /*else if(codigo == "imprimirAmigos") {
-                //imprimirAmigos(listaUsuariosRede);
-            }*/ else if(codigo.at(0) == '#') {
+            } else if(codigo == "imprimirAmigos") {
+                int IDAmigoBuscado;
+
+                leitura >> IDAmigoBuscado;
+
+                imprimirAmigos(listaUsuariosRede, &escreve, IDAmigoBuscado);
+            } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
         }
