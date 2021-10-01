@@ -146,7 +146,13 @@ int main(void) {
                 }
             } else if(codigo == "removerTodosUsariosRede") {
                 removerTodosUsariosRede(listaUsuariosRede);
-            } else if(codigo.at(0) == '#') {
+            } else if(codigo == "imprimirMediaIdadeAmigos") {
+                int IDUsuarioMedia;
+
+                leitura >> IDUsuarioMedia;
+
+                imprimirMediaIdadeAmigos(listaUsuariosRede, IDUsuarioMedia, &escreve);
+            }  else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
         }

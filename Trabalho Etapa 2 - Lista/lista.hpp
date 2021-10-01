@@ -211,7 +211,7 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
         n = buscaL(lista, id)->dado->amigos->inicio;
 
     if(!buscaL(lista, id)) {
-        *escreve << "\nErro ao imprimir amigos do usuario com ID " << id << ". O usuario nao existe." << endl;
+        *escreve << "Erro ao imprimir amigos do usuario com ID " << id << ". O usuario nao existe." << endl;
         (*escreve).flush();
     } else {
         *escreve << "Amigos de " << buscaL(lista, id)->dado->nome << " (" << buscaL(lista, id)->dado->ID << "): ";
@@ -224,11 +224,13 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
                 *escreve << ", ";
                 (*escreve).flush();
             } else {
-                *escreve << "\n";
+                *escreve << "";
                 (*escreve).flush();
             }
             n = n->prox;
         }
+        *escreve << "\n";
+        (*escreve).flush();
     }
 }
 
@@ -294,6 +296,37 @@ bool removerTodasAmizades(Lista *lista, Usuario *usuario) {
     }
 
     return true;
+}
+
+void imprimirMediaIdadeAmigos(Lista *lista, int id, ofstream *escreve) {
+    No *n;
+
+    float soma = 0;
+    float cont = 0;
+
+    if(buscaL(lista, id)) 
+        n = buscaL(lista, id)->dado->amigos->inicio;
+
+    if(!buscaL(lista, id)) {
+        *escreve << "Erro ao imprimir a media de idade dos amigos do usuario com ID " << id << "." << endl;
+        (*escreve).flush();
+    } else {
+        *escreve << "Media de idade dos amigos de " << buscaL(lista, id)->dado->nome << " (" << buscaL(lista, id)->dado->ID << "): ";
+        (*escreve).flush();
+        while(n) {
+            soma = soma + n->dado->idade;
+            cont++;
+            n = n->prox;
+        }
+
+        if(cont == 0) {
+            *escreve << 0 << endl;
+            (*escreve).flush();
+        } else {
+            *escreve << (soma / cont) << endl;
+            (*escreve).flush();
+        }
+    }
 }
 
 void mostraDescritorL(Lista *lista) {
