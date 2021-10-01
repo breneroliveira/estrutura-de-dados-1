@@ -97,7 +97,7 @@ ostream& operator << (ostream& os, const No *n) {
 ostream& operator << (ostream& os, const Lista *l) {
     No *n = l->inicio;
 
-    while(n) {
+    while(n) {  
         os << n;
         n = n->prox;
         if(n)

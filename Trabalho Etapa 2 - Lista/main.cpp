@@ -38,7 +38,15 @@ bool removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {
 }
 
 void removerTodosUsariosRede(Lista * listaUsuariosRede) {
-    /// Chamar "removerUsuarioRede" para todos os usuarios da rede
+    No *n = listaUsuariosRede->inicio;
+
+    if(!n)
+        return;
+
+    while(n) {
+        removerUsuarioRede(listaUsuariosRede, n->dado->ID);
+        n = n->prox;
+    }
 }
 
 int main(void) {
@@ -136,6 +144,8 @@ int main(void) {
                     escreve << "Erro ao excluir o usuário com ID " << IDUsuarioRemover << ". O usuário não existe." << endl;
                     escreve.flush();
                 }
+            } else if(codigo == "removerTodosUsariosRede") {
+                removerTodosUsariosRede(listaUsuariosRede);
             } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
@@ -147,19 +157,9 @@ int main(void) {
     escreve.close();
 
     mostraDescritorL(listaUsuariosRede);
-    cout << "Usuarios da rede: " << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;
-    //removerTodasAmizades(listaUsuariosRede);
-    //cout << "" << endl;
+    cout << "Usuarios da rede: [" << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;
 
-    /// Removendo amigo
-    //removerAmigo(listaUsuariosRede,  4, 10);
-
-    /// Removendo usuario da rede
-    //removerUsuarioRede(listaUsuariosRede, 10);
-
-    //removerTodosUsariosRede(listaUsuariosRede);
-
-    removerUsuarioRede(listaUsuariosRede, 70);
+    removerTodosUsariosRede(listaUsuariosRede);
 
     delete listaUsuariosRede;
 
