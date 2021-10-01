@@ -20,29 +20,21 @@ bool addAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
     return true;
 }
 
-bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
-    if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
+bool removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {    
+    if(!buscaL(listaUsuariosRede, ID1))
         return false;
 
-    if(!buscaL(listaUsuariosRede, ID1) || !buscaL(listaUsuariosRede, ID2))
+    if(!removerTodasAmizades(listaUsuariosRede, buscaL(listaUsuariosRede, ID1)->dado))
         return false;
 
-    if(!removeL(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
-       !removeL(buscaL(listaUsuariosRede, ID2)->dado->amigos, buscaL(listaUsuariosRede, ID1)->dado))
+    Usuario *user = buscaL(listaUsuariosRede, ID1)->dado;
+
+    if(removeL(listaUsuariosRede, buscaL(listaUsuariosRede, ID1)->dado))
+        delete(user);
+    else
         return false;
 
     return true;
-}
-
-void removerUsuarioRede(Lista * listaUsuariosRede, int ID1) {
-    /// Buscar usuario 1, passando por parametro (listaUsuariosRede, ID1)
-
-    /// Se Fernanda sera removida, a amizada entre Fernanda e Pedro deve ser removida primeiro!
-    /// removerTotasAmizades(usuario1);
-
-
-    /// removeL(listaUsuariosRede, usuario1); /// remove o no
-    /// delete usuario1; /// desaloca o usuario
 }
 
 void removerTodosUsariosRede(Lista * listaUsuariosRede) {
@@ -128,6 +120,22 @@ int main(void) {
                     escreve << "Erro ao remover a amizade. Não existe amizade entre os usuários com IDs " << IDAmigoRemover1 << " e " << IDAmigoRemover2 <<"." << endl;
                     escreve.flush();
                 }
+            } else if(codigo == "removerUsuario") {
+                int IDUsuarioRemover;
+
+                leitura >> IDUsuarioRemover;
+
+                if(buscaL(listaUsuariosRede, IDUsuarioRemover)) {
+                    No *usuarioRemovido = buscaL(listaUsuariosRede, IDUsuarioRemover);
+
+                    escreve << "O usuario " << usuarioRemovido->dado->nome << " (" << usuarioRemovido->dado->ID << ") foi excluido da rede." << endl;
+                    escreve.flush();
+                    
+                    removerUsuarioRede(listaUsuariosRede, IDUsuarioRemover);
+                } else {
+                    escreve << "Erro ao excluir o usuário com ID " << IDUsuarioRemover << ". O usuário não existe." << endl;
+                    escreve.flush();
+                }
             } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
@@ -140,6 +148,8 @@ int main(void) {
 
     mostraDescritorL(listaUsuariosRede);
     cout << "Usuarios da rede: " << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;
+    //removerTodasAmizades(listaUsuariosRede);
+    //cout << "" << endl;
 
     /// Removendo amigo
     //removerAmigo(listaUsuariosRede,  4, 10);
@@ -148,6 +158,8 @@ int main(void) {
     //removerUsuarioRede(listaUsuariosRede, 10);
 
     //removerTodosUsariosRede(listaUsuariosRede);
+
+    removerUsuarioRede(listaUsuariosRede, 70);
 
     delete listaUsuariosRede;
 

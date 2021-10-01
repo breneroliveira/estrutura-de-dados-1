@@ -181,17 +181,23 @@ bool addUsuario(Lista *lista, Usuario *valor) {
 void imprimirUsuarios(Lista *lista, ostream *escreve) {
     No *n = lista->inicio;
 
-    if(!n)
+    if(!n) {
         *escreve << "Nao ha usuarios na rede." << endl;
-    else {
+        (*escreve).flush();
+    } else {
         *escreve << "Usuarios da rede: ";
+        (*escreve).flush();
         while(n) {
             *escreve << n->dado->nome << " (" << n->dado->ID << ")";
+            (*escreve).flush();
             
-            if((lista->fim->dado) != n->dado)
+            if((lista->fim->dado) != n->dado) {
                 *escreve << ", ";
-            else
+                (*escreve).flush();
+            } else {
                 *escreve << "\n";
+                (*escreve).flush();
+            }
             
             n = n->prox;
         }
@@ -213,7 +219,7 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
         while(n) {
             *escreve << n->dado->nome << " (" << n->dado->ID << ")";
             (*escreve).flush();
-
+            
             if((buscaL(lista, id)->dado->amigos->fim->dado->ID) != n->dado->ID) {
                 *escreve << ", ";
                 (*escreve).flush();
@@ -221,7 +227,6 @@ void imprimirAmigos(Lista *lista, ostream *escreve, int id) {
                 *escreve << "\n";
                 (*escreve).flush();
             }
-            
             n = n->prox;
         }
     }
@@ -259,6 +264,35 @@ bool removeL(Lista *lista, Usuario *valor) {
     lista->tamanho--;
 
     delete(atual);
+    return true;
+}
+
+bool removerAmigo(Lista * listaUsuariosRede, int ID1, int ID2) {
+    if(buscaL(listaUsuariosRede, ID1) == buscaL(listaUsuariosRede, ID2))
+        return false;
+
+    if(!buscaL(listaUsuariosRede, ID1) || !buscaL(listaUsuariosRede, ID2))
+        return false;
+
+    if(!removeL(buscaL(listaUsuariosRede, ID1)->dado->amigos, buscaL(listaUsuariosRede, ID2)->dado) || 
+       !removeL(buscaL(listaUsuariosRede, ID2)->dado->amigos, buscaL(listaUsuariosRede, ID1)->dado))
+        return false;
+
+    return true;
+}
+
+bool removerTodasAmizades(Lista *lista, Usuario *usuario) {
+    No *n = buscaL(lista, usuario->ID);
+    No *amigo = n->dado->amigos->inicio;
+
+    if(!n)
+        return false;
+
+    while(amigo) {
+        removerAmigo(lista, n->dado->ID, amigo->dado->ID);
+        amigo = amigo->prox;
+    }
+
     return true;
 }
 

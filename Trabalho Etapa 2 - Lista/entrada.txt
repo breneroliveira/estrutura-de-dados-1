@@ -24,10 +24,21 @@ imprimirAmigos 30
 imprimirAmigos 9 #Erro, o usuário com ID 9 não existe
 
 removerAmigo 4 3
+
+removerUsuario 7
+
+imprimirUsuarios
+imprimirAmigos 3
+imprimirAmigos 4
+imprimirAmigos 6
+imprimirAmigos 30
+imprimirAmigos 7 #o usuário não existe mais, não imprime nada
+
+#removerUsuario 7 #o usuário não existe mais, não exclui nenhum usuário
 removerAmigo 4 3 #a amizade não existe mais, não tem amizade para remover
 removerAmigo 9 8 #usuários não existem, não tem amizade para remover
 
-#imprimirUsuarios
+imprimirUsuarios
 
 imprimirAmigos 3
 imprimirAmigos 4
