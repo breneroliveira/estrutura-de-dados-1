@@ -335,6 +335,12 @@ void imprimirAmigosEmComum(Lista *lista, int ID1, int ID2, int sexo, ostream *es
         return;
     }
 
+    if(buscaL(lista, ID1) == buscaL(lista, ID2)) {
+        *escreve << "Erro ao imprimir amigos em comum dos usuarios com IDs " << ID1 << " e " << ID2 << ". Os IDs sao iguais." << endl;
+        (*escreve).flush();
+        return;
+    }
+
     n1 = buscaL(lista, ID1)->dado->amigos->inicio;
 
     n2 = buscaL(lista, ID2)->dado->amigos->inicio;
@@ -349,14 +355,6 @@ void imprimirAmigosEmComum(Lista *lista, int ID1, int ID2, int sexo, ostream *es
                     if(n2->dado->sexo == 0) {
                         *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
                         (*escreve).flush();
-
-                        /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
-                            *escreve << ", ";
-                            (*escreve).flush();
-                        } else {
-                            *escreve << "";
-                            (*escreve).flush();
-                        }*/
                     }
                 }
                 n2 = n2->prox;
@@ -375,14 +373,6 @@ void imprimirAmigosEmComum(Lista *lista, int ID1, int ID2, int sexo, ostream *es
                     if(n2->dado->sexo == 1) {
                         *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
                         (*escreve).flush();
-
-                        /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
-                            *escreve << ", ";
-                            (*escreve).flush();
-                        } else {
-                            *escreve << "";
-                            (*escreve).flush();
-                        }*/
                     }
                 }
                 n2 = n2->prox;
@@ -400,14 +390,6 @@ void imprimirAmigosEmComum(Lista *lista, int ID1, int ID2, int sexo, ostream *es
                 if(n1->dado->ID == n2->dado->ID) {
                     *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
                     (*escreve).flush();
-
-                    /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
-                        *escreve << ", ";
-                        (*escreve).flush();
-                    } else {
-                        *escreve << "";
-                        (*escreve).flush();
-                    }*/
                 }
                 n2 = n2->prox;
             }

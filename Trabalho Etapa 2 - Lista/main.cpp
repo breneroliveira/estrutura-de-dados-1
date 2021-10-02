@@ -162,6 +162,8 @@ int main(void) {
                 getline(leitura, elementoArquivo);
             }
         }
+
+        cout << "O programa foi executado, verifique o arquivo 'saida.txt'." << endl;
     } else
         cout << "Erro ao abrir o arquivo." << endl;
 
@@ -171,8 +173,6 @@ int main(void) {
     removerTodosUsariosRede(listaUsuariosRede);
 
     delete listaUsuariosRede;
-
-    cout << "O programa foi executado, verifique o arquivo 'saida.txt'." << endl;
 
     return EXIT_SUCCESS;
 }
