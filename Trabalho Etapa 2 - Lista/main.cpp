@@ -52,9 +52,7 @@ void removerTodosUsariosRede(Lista * listaUsuariosRede) {
 int main(void) {
     setlocale(LC_ALL, "Portuguese");
 
-    //Usuario *novoUsr = nullptr;
     Lista *listaUsuariosRede = new Lista();
-    //No *listaAmigos = new No();
 
     string elementoArquivo, codigo;
 
@@ -101,7 +99,7 @@ int main(void) {
                     escreve << "Os usuarios " << amigoBuscado1->dado->nome << " (" << amigoBuscado1->dado->ID << ") e " << amigoBuscado2->dado->nome << " (" << amigoBuscado2->dado->ID << ") se tornaram amigos." << endl;
                     escreve.flush();
                 } else {
-                    escreve << "Erro ao criar amizade dos usuários com IDs " << IDAmigo1 << " e " << IDAmigo2 <<"." << endl;
+                    escreve << "Erro ao criar amizade dos usuarios com IDs " << IDAmigo1 << " e " << IDAmigo2 <<"." << endl;
                     escreve.flush();
                 }
             } else if(codigo == "imprimirUsuarios") {
@@ -125,7 +123,7 @@ int main(void) {
                     escreve << "Os usuarios " << amigoRemovido1->dado->nome << " (" << amigoRemovido1->dado->ID << ") e " << amigoRemovido2->dado->nome << " (" << amigoRemovido2->dado->ID << ") nao sao mais amigos." << endl;
                     escreve.flush();
                 } else {
-                    escreve << "Erro ao remover a amizade. Não existe amizade entre os usuários com IDs " << IDAmigoRemover1 << " e " << IDAmigoRemover2 <<"." << endl;
+                    escreve << "Erro ao remover a amizade. Nao existe amizade entre os usuarios com IDs " << IDAmigoRemover1 << " e " << IDAmigoRemover2 <<"." << endl;
                     escreve.flush();
                 }
             } else if(codigo == "removerUsuario") {
@@ -141,7 +139,7 @@ int main(void) {
                     
                     removerUsuarioRede(listaUsuariosRede, IDUsuarioRemover);
                 } else {
-                    escreve << "Erro ao excluir o usuário com ID " << IDUsuarioRemover << ". O usuário não existe." << endl;
+                    escreve << "Erro ao excluir o usuario com ID " << IDUsuarioRemover << ". O usuario nao existe." << endl;
                     escreve.flush();
                 }
             } else if(codigo == "removerTodosUsariosRede") {
@@ -152,7 +150,15 @@ int main(void) {
                 leitura >> IDUsuarioMedia;
 
                 imprimirMediaIdadeAmigos(listaUsuariosRede, IDUsuarioMedia, &escreve);
-            }  else if(codigo.at(0) == '#') {
+            } else if(codigo == "imprimirAmigosEmComum") {
+                int IDAmigoComum1, IDAmigoComum2, sexo;
+
+                leitura >> IDAmigoComum1;
+                leitura >> IDAmigoComum2;
+                leitura >> sexo;
+
+                imprimirAmigosEmComum(listaUsuariosRede, IDAmigoComum1, IDAmigoComum2, sexo, &escreve);
+            } else if(codigo.at(0) == '#') {
                 getline(leitura, elementoArquivo);
             }
         }
@@ -162,12 +168,11 @@ int main(void) {
     leitura.close();
     escreve.close();
 
-    mostraDescritorL(listaUsuariosRede);
-    cout << "Usuarios da rede: [" << listaUsuariosRede->tamanho << "]:{" << listaUsuariosRede << "}" << endl;
-
     removerTodosUsariosRede(listaUsuariosRede);
 
     delete listaUsuariosRede;
+
+    cout << "O programa foi executado, verifique o arquivo 'saida.txt'." << endl;
 
     return EXIT_SUCCESS;
 }

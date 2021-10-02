@@ -88,10 +88,6 @@ ostream& operator << (ostream& os, const No *n) {
     /// cout << n;
     return os << n->dado->nome << " (" << n->dado->ID << ")";
 }
-/*ostream& operator << (ostream& os, const No *n) {
-    /// cout << n;
-    return os << "[" << n->dado->ID << ", " << n->dado->nome << ", " << n->dado->idade << ", " << n->dado->sexo << "]";
-}*/
 
 /// Quanto cout receber uma struct Lista
 ostream& operator << (ostream& os, const Lista *l) {
@@ -326,6 +322,99 @@ void imprimirMediaIdadeAmigos(Lista *lista, int id, ofstream *escreve) {
             *escreve << (soma / cont) << endl;
             (*escreve).flush();
         }
+    }
+}
+
+void imprimirAmigosEmComum(Lista *lista, int ID1, int ID2, int sexo, ostream *escreve) {
+    No *n1;
+    No *n2;
+
+    if(!buscaL(lista, ID1) || !buscaL(lista, ID2)) {
+        *escreve << "Erro ao imprimir amigos em comum dos usuarios com IDs " << ID1 << " e " << ID2 << "." << endl;
+        (*escreve).flush();
+        return;
+    }
+
+    n1 = buscaL(lista, ID1)->dado->amigos->inicio;
+
+    n2 = buscaL(lista, ID2)->dado->amigos->inicio;
+
+    if(sexo == 0) {
+        *escreve << "Amigos em comum entre " << buscaL(lista, ID1)->dado->nome << " (" << buscaL(lista, ID1)->dado->ID << ") e " << buscaL(lista, ID2)->dado->nome << " (" << buscaL(lista, ID2)->dado->ID << ") (sexo masculino): ";
+        (*escreve).flush();
+        while(n1) {
+            n2 = buscaL(lista, ID2)->dado->amigos->inicio;
+            while(n2) {
+                if(n1->dado->ID == n2->dado->ID) {
+                    if(n2->dado->sexo == 0) {
+                        *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
+                        (*escreve).flush();
+
+                        /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
+                            *escreve << ", ";
+                            (*escreve).flush();
+                        } else {
+                            *escreve << "";
+                            (*escreve).flush();
+                        }*/
+                    }
+                }
+                n2 = n2->prox;
+            }
+            n1 = n1->prox;
+        }
+        *escreve << "\n";
+        (*escreve).flush();
+    } else if(sexo == 1) {
+        *escreve << "Amigos em comum entre " << buscaL(lista, ID1)->dado->nome << " (" << buscaL(lista, ID1)->dado->ID << ") e " << buscaL(lista, ID2)->dado->nome << " (" << buscaL(lista, ID2)->dado->ID << ") (sexo feminino): ";
+        (*escreve).flush();
+        while(n1) {
+            n2 = buscaL(lista, ID2)->dado->amigos->inicio;
+            while(n2) {
+                if(n1->dado->ID == n2->dado->ID) {
+                    if(n2->dado->sexo == 1) {
+                        *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
+                        (*escreve).flush();
+
+                        /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
+                            *escreve << ", ";
+                            (*escreve).flush();
+                        } else {
+                            *escreve << "";
+                            (*escreve).flush();
+                        }*/
+                    }
+                }
+                n2 = n2->prox;
+            }            
+            n1 = n1->prox;
+        }
+        *escreve << "\n";
+        (*escreve).flush();
+    } else if(sexo == 2) {
+        *escreve << "Amigos em comum entre " << buscaL(lista, ID1)->dado->nome << " (" << buscaL(lista, ID1)->dado->ID << ") e " << buscaL(lista, ID2)->dado->nome << " (" << buscaL(lista, ID2)->dado->ID << ") (todos os sexos): ";
+        (*escreve).flush();
+        while(n1) {
+            n2 = buscaL(lista, ID2)->dado->amigos->inicio;
+            while(n2) {
+                if(n1->dado->ID == n2->dado->ID) {
+                    *escreve << n2->dado->nome << " (" << n2->dado->ID << "), ";
+                    (*escreve).flush();
+
+                    /*if((buscaL(lista, ID2)->dado->amigos->fim->dado->ID) != n2->dado->ID) {
+                        *escreve << ", ";
+                        (*escreve).flush();
+                    } else {
+                        *escreve << "";
+                        (*escreve).flush();
+                    }*/
+                }
+                n2 = n2->prox;
+            }
+            n1 = n1->prox;
+        }
+        *escreve << "\n";
+        (*escreve).flush();
     }
 }
 

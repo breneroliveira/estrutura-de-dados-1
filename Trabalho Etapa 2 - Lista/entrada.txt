@@ -25,9 +25,38 @@ imprimirAmigos 9 #Erro, o usuário com ID 9 não existe
 
 
 imprimirMediaIdadeAmigos 6
-imprimirAmigos 30
 imprimirMediaIdadeAmigos 4
 imprimirMediaIdadeAmigos 3
 imprimirMediaIdadeAmigos 7
 imprimirMediaIdadeAmigos 30
 imprimirMediaIdadeAmigos 9 #Erro, o usuário com ID 9 não existe
+
+
+imprimirAmigosEmComum 6 3 2
+imprimirAmigosEmComum 6 3 0
+imprimirAmigosEmComum 6 3 1
+removerAmigo 4 3
+imprimirAmigosEmComum 6 3 2
+imprimirAmigosEmComum 6 3 0
+imprimirAmigosEmComum 6 3 1
+imprimirAmigosEmComum 8 9 0 #os usuarios não existem, não imprime nada
+
+
+
+
+removerUsuario 7
+
+imprimirUsuarios
+imprimirAmigos 3
+imprimirAmigos 4
+imprimirAmigos 6
+imprimirAmigos 30
+imprimirAmigos 7 #o usuário não existe mais, não imprime nada
+
+
+
+removerUsuario 7 #o usuário não existe mais, não exclui nenhum usuário
+removerAmigo 4 3 #a amizade não existe mais, não tem amizade para remover
+removerAmigo 9 8 #usuários não existem, não tem amizade para remover
+
+#imprimirUsuarios
